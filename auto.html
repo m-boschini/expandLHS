@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Package documentation &mdash; expandLHS 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Examples" href="example.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            expandLHS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Readme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Package documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#expandLHS.ExpandLHS"><code class="docutils literal notranslate"><span class="pre">ExpandLHS</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.LHSinLHS_optimized"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.LHSinLHS_optimized()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.LHSinLHS_sampling"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.LHSinLHS_sampling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.__call__"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.count_samples"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.count_samples()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.degree"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.degree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.optimal_expansion"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.optimal_expansion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.regridding"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.regridding()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">expandLHS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Package documentation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-expandLHS">
+<span id="package-documentation"></span><h1>Package documentation<a class="headerlink" href="#module-expandLHS" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">expandLHS.</span></span><span class="sig-name descname"><span class="pre">ExpandLHS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS" title="Link to this definition"></a></dt>
+<dd><p>Class of the Latin Hypercube Sampling (LHS) Expansion algorithm.</p>
+<p>The Latin Hypercube Sampling is a stratified sampling method that
+allows to generate N near-random samples in the P-dimensional hypercube
+[0, 1)^P. It is a space-filling sampling strategy that ensures the
+one-dimensional projection property, i.e. the samples are uniformly
+distributed in each one-dimension projection.</p>
+<p>Given an initial LHS set of size N defined in the P-dimensional hypercube
+[0, 1)^P, this class expands the set adding new M samples.
+This procedure requires a new partition of the interval [0,1) in each
+dimension P that may result in loosing the LHS projection property. The case
+M = k * N, where k is a natural number, always preserves the LHS projection
+property.
+This code allows to compute a new metric D, with 0 &lt; D &lt;= 1, corresponding
+to the degree-of-LHS of a samples set, where D = 1 corresponds to a perfect
+LHS. This allows to quantify the impact of an epansion on the initial set.
+It is worth noticing that the degree does not depend on the sampling
+strategy, but only on the initial set and the new partition of the intervals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Cardinality of the sample set.</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">int</span></dt><dd><p>Number of dimensions.</p>
+</dd>
+<dt><strong>samples</strong><span class="classifier">numpy.ndarray with shape (N, P)</span></dt><dd><p>Initial Latin Hypercube sample set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.regridding" title="expandLHS.ExpandLHS.regridding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regridding</span></code></a>([M, samples])</p></td>
+<td><p>Regrid the Latin Hypercube samples by adding M new intervals in each dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.count_samples" title="expandLHS.ExpandLHS.count_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count_samples</span></code></a>([M, samples])</p></td>
+<td><p>Count the number of samples in each of the (N + M) x P intervals.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.degree" title="expandLHS.ExpandLHS.degree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">degree</span></code></a>([M])</p></td>
+<td><p>Compute the degree-of-LHS of the current sample set when expanded to size N + M, assuming M new samples will be generated.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.optimal_expansion" title="expandLHS.ExpandLHS.optimal_expansion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimal_expansion</span></code></a>(radius[, verbose])</p></td>
+<td><p>Find the optimal expansion size ---the expansion that has the higher degree-of-LHS in a given range.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.LHSinLHS_sampling" title="expandLHS.ExpandLHS.LHSinLHS_sampling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LHSinLHS_sampling</span></code></a>(M, voids)</p></td>
+<td><p>Generate new samples within the voids of the current sample set preserving as much as possible the properties of a Latin Hypercube.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.LHSinLHS_optimized" title="expandLHS.ExpandLHS.LHSinLHS_optimized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LHSinLHS_optimized</span></code></a>(M, voids, criterion, ...)</p></td>
+<td><p>Generate new samples within the voids of the current sample set preserving as much as possible the properties of a Latin Hypercube.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.__call__" title="expandLHS.ExpandLHS.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>([M, seed, optimize, trials, tol])</p></td>
+<td><p>Build the Latin Hypercube expansion of size M.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.LHSinLHS_optimized">
+<span class="sig-name descname"><span class="pre">LHSinLHS_optimized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">criterion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.LHSinLHS_optimized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.LHSinLHS_optimized" title="Link to this definition"></a></dt>
+<dd><p>Generate new samples within the voids of the current sample set
+preserving as much as possible the properties of a Latin Hypercube.
+The samples spatial distribution is optimize in order to achieve the
+lowest centered discrepancy or the higher geometric discrepancy within
+a number of samplings equal to trials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – int
+Number of new samples to generate.</p></li>
+<li><p><strong>voids</strong> – numpy.ndarray(N + M, P)
+Boolean array indicating the empty intervals.</p></li>
+<li><p><strong>criterion</strong> – str
+Optimization strategy. Available methods are
+centered discrepancy and geometric discrepancy.</p></li>
+<li><p><strong>trials</strong> – int
+Number of expansions to sample. Defaults to 1000.</p></li>
+<li><p><strong>tol</strong> – float
+Tolerance for the optimization. Defaults to 1e-4.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>numpy.ndarray(M, P)</dt><dd><p>New samples generated within the voids and optimized with the
+given criterion.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>opt_samples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.LHSinLHS_sampling">
+<span class="sig-name descname"><span class="pre">LHSinLHS_sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.LHSinLHS_sampling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.LHSinLHS_sampling" title="Link to this definition"></a></dt>
+<dd><p>Generate new samples within the voids of the current sample set
+preserving as much as possible the properties of a Latin Hypercube.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – int
+Number of new samples to generate.</p></li>
+<li><p><strong>voids</strong> – numpy.ndarray(N + M, P)
+Boolean array indicating the empty intervals.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>numpy.ndarray(M, P)</dt><dd><p>New samples generated within the voids.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>new samples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'discrepancy'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'geometric_discrepancy'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.__call__" title="Link to this definition"></a></dt>
+<dd><p>Build the Latin Hypercube expansion of size M.</p>
+<p>The optional argument ‘optimize’ allows to find an optimal set of new
+samples with lower centered discrepancy (space filling metric)
+or higher geometric discrepancy (pairwise minimum distance).
+Both these metrics are implemented in Scipy.stats.qmc.
+The code produce a number of possible expansion equal to ‘trials’.
+It is not garanteed that the final sample will be the absolute minimum
+of the discrepancy or the absolute maximum of the geometric
+discrepancy for the given sample. The optimization through geometric
+discrepancy could fail if the minimum pairwise distance is set by the
+initial set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – int (optional)
+Number of new samples to generate. Defaults to 1.</p></li>
+<li><p><strong>seed</strong> – int | None (optional)
+Seed for the random number generator. Defaults to None.</p></li>
+<li><p><strong>optimize</strong> – str | None (optional)
+Optimization criterion, the available options are centered
+discrepancy and geometric discrepancy</p></li>
+<li><p><strong>trials</strong> – int (optional)
+number of trials for the optimal expansion set. Defoult to 1000.</p></li>
+<li><p><strong>tol</strong> – float (optional)
+Tolerance for the optimization. Defaults to 1e-4.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>numpy.ndarray(N + M, P)</dt><dd><p>Expanded Latin Hypercube sample set.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>expansion</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.count_samples">
+<span class="sig-name descname"><span class="pre">count_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.count_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.count_samples" title="Link to this definition"></a></dt>
+<dd><p>Count the number of samples in each of the (N + M) x P intervals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – int (optional)
+Number of new intervals to add. Defaults to 1.</p></li>
+<li><p><strong>samples</strong> – numpy.ndarray (optional)
+If given, the counting of samples will be performed on this set
+and not on the default one.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>numpy.ndarray(N + M, P)</dt><dd><p>An array indicating the number of samples in each interval.
+Adding M intervals may cause two samples to fall in the same
+bin, thus leaving a permanent void.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>population</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.degree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.degree" title="Link to this definition"></a></dt>
+<dd><p>Compute the degree-of-LHS of the current sample set
+when expanded to size N + M, assuming M new samples will be generated.
+If M = 0, compute the degree of the initial set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>M</strong> – int (optional)
+Number of new intervals to add. Defaults to 1.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>float</dt><dd><p>Degree (D) of the Latin Hypercube Sampling, with 0 &lt; D &lt;= 1.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>degree</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.optimal_expansion">
+<span class="sig-name descname"><span class="pre">optimal_expansion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.optimal_expansion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.optimal_expansion" title="Link to this definition"></a></dt>
+<dd><p>Find the optimal expansion size —the expansion that has
+the higher degree-of-LHS in a given range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> – int | (int, int)
+Range of values to consider for the expansion.
+If a single value is provided, it is interpreted as
+[1, upper bound]
+If a tuple is provided, it is interpreted as
+[lower bound, upper bound].
+Both the lower and the upper bounds are included.</p></li>
+<li><p><strong>verbose</strong> – bool
+If False return the expansion size with the highest degree,
+if True returns all the expansion sizes within radius.
+Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>[(int, float),…]</dt><dd><p>List of tuples of kind (expansion size, expansion degree),
+ordered by decreasing expansion degree.
+The tuple with expansion size equal 0 is the degree of the
+current set (=1 for a perfect Latin Hypercube).</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>expansions size, expansion degree</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.regridding">
+<span class="sig-name descname"><span class="pre">regridding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.regridding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.regridding" title="Link to this definition"></a></dt>
+<dd><p>Regrid the Latin Hypercube samples by adding M new intervals in
+each dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – int (optional)
+Number of new intervals to add. Defaults to 1.</p></li>
+<li><p><strong>samples</strong> – numpy.ndarray (optional)
+If given, the regridding will be performed on this set and not
+on the default one.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>numpy.ndarray(N + M, P)</dt><dd><p>A boolean array indicating the empty intervals.
+In each dimension the number of voids is &gt;= M, as adding M
+intervals may cause two samples to fall in the same bin,
+thus leaving a permanent void.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>voids</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="example.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright (c) Matteo Boschini, Davide Gerosa.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; expandLHS 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Package documentation" href="auto.html" />
+    <link rel="prev" title="Readme" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            expandLHS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Readme</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sample-a-latin-hypercube">Sample a Latin Hypercube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#expand-the-latin-hypercube">Expand the Latin Hypercube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#degree-of-an-expansion">Degree of an expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optimized-expansion">Optimized expansion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto.html">Package documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">expandLHS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">`This Jupyter Notebook &lt;&gt;`__</span></a> aims at showing the properties of the
+<code class="docutils literal notranslate"><span class="pre">expandLHS</span></code> module.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats.qmc</span><span class="w"> </span><span class="kn">import</span> <span class="n">LatinHypercube</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the following import ensure to load the latest version of the module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the user should install the module and then import it as usual</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">importlib.machinery</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceFileLoader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expandLHS</span> <span class="o">=</span> <span class="n">SourceFileLoader</span><span class="p">(</span><span class="s2">&quot;expandLHS&quot;</span><span class="p">,</span> <span class="s2">&quot;../expandLHS/expandLHS.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">load_module</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">expandLHS</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExpandLHS</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">plotter</span>
+</pre></div>
+</div>
+<p>Matplotlib is building the font cache; this may take a moment.</p>
+<section id="sample-a-latin-hypercube">
+<h2>Sample a Latin Hypercube<a class="headerlink" href="#sample-a-latin-hypercube" title="Link to this heading"></a></h2>
+<p>Let’s start sampling a random Latin Hypercube as implemented in
+Scipy.stats.qmc.LatinHypercube.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># number of samples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">P</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># number of dimensions</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_sampler</span> <span class="o">=</span> <span class="n">LatinHypercube</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set</span> <span class="o">=</span> <span class="n">lhs_sampler</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lhs_set</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_label</span><span class="o">=</span><span class="s1">&#39;P1&#39;</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="s1">&#39;P2&#39;</span><span class="p">)</span>
+<span class="go">(&lt;Figure size 600x600 with 1 Axes&gt;, &lt;Axes: xlabel=&#39;P1&#39;, ylabel=&#39;P2&#39;&gt;)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//example-2.png">png</a>, <a class="reference external" href=".//example-2.hires.png">hires.png</a>, <a class="reference external" href=".//example-2.pdf">pdf</a>)</p>
+<figure class="align-default">
+<img alt="_images/example-2.png" src="_images/example-2.png" />
+</figure>
+</section>
+<section id="expand-the-latin-hypercube">
+<h2>Expand the Latin Hypercube<a class="headerlink" href="#expand-the-latin-hypercube" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Now the aim is to add new samples without modifying the ones we
+already sampled.</div>
+<div class="line">This procedure may cause two samples to fall in the same interval,
+even if they do not overlap in the initial set.</div>
+<div class="line">As a first step we need to resize our gridding with
+<code class="docutils literal notranslate"><span class="pre">ExpandLHS.regridding</span></code>.</div>
+<div class="line">The method <code class="docutils literal notranslate"><span class="pre">ExpandLHS.count_samples</span></code> comput the number of samples in
+each interval for each dimension.</div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># number of samples to add</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eLHS</span> <span class="o">=</span> <span class="n">ExpandLHS</span><span class="p">(</span><span class="n">lhs_set</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">voids</span> <span class="o">=</span> <span class="n">eLHS</span><span class="o">.</span><span class="n">regridding</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">overlaps</span> <span class="o">=</span> <span class="n">eLHS</span><span class="o">.</span><span class="n">count_samples</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#the plot function internally compute both voids and overlaps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lhs_set</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="n">M</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="s1">&#39;LHS&#39;</span><span class="p">,</span> <span class="n">voids</span><span class="o">=</span><span class="n">voids</span><span class="p">,</span> <span class="n">overlaps</span><span class="o">=</span><span class="n">overlaps</span><span class="p">,</span> <span class="n">x_label</span><span class="o">=</span><span class="s1">&#39;P1&#39;</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="s1">&#39;P2&#39;</span><span class="p">)</span>
+<span class="go">(&lt;Figure size 600x600 with 1 Axes&gt;, &lt;Axes: xlabel=&#39;P1&#39;, ylabel=&#39;P2&#39;&gt;)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//example-3.png">png</a>, <a class="reference external" href=".//example-3.hires.png">hires.png</a>, <a class="reference external" href=".//example-3.pdf">pdf</a>)</p>
+<figure class="align-default">
+<img alt="_images/example-3.png" src="_images/example-3.png" />
+</figure>
+<p>Then, is it possible to perform the expansion by <code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__</span></code></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">voids</span> <span class="o">=</span> <span class="n">eLHS</span><span class="o">.</span><span class="n">regridding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">lhs_set_expanded</span><span class="p">)</span> <span class="c1">#recompute voids on the expanded set</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">lhs_set</span><span class="p">,</span> <span class="n">lhs_set_expanded</span><span class="p">],</span> <span class="n">M</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LHS&#39;</span><span class="p">,</span> <span class="s1">&#39;eLHS&#39;</span><span class="p">],</span> \
+<span class="gp">... </span>    <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">],</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">sizes</span><span class="o">=</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span> \
+<span class="gp">... </span>    <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">voids</span><span class="o">=</span><span class="n">voids</span><span class="p">,</span> <span class="n">overlaps</span><span class="o">=</span><span class="n">overlaps</span><span class="p">)</span>
+<span class="go">(&lt;Figure size 600x600 with 1 Axes&gt;, &lt;Axes: &gt;)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//example-4.png">png</a>, <a class="reference external" href=".//example-4.hires.png">hires.png</a>, <a class="reference external" href=".//example-4.pdf">pdf</a>)</p>
+<figure class="align-default">
+<img alt="_images/example-4.png" src="_images/example-4.png" />
+</figure>
+</section>
+<section id="degree-of-an-expansion">
+<h2>Degree of an expansion<a class="headerlink" href="#degree-of-an-expansion" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">The regridding of the space may cause some overlaps and voids, which
+imply that the new set is not a Latin Hypercube anymore. We define a
+quantity to measure the degree-of-LHS of a samples set.</div>
+<div class="line">This estimate is performed with the method <code class="docutils literal notranslate"><span class="pre">ExpandLHS.degree</span></code>.</div>
+<div class="line">A perfect Latin Hypercube has always a degree of 1.</div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">degree</span> <span class="o">=</span> <span class="n">eLHS</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;degree-of-LHS = </span><span class="si">{</span><span class="n">degree</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>degree-of-LHS = 0.964</p>
+<p>Using the method <code class="docutils literal notranslate"><span class="pre">ExpandLHS.optimal_expansion</span></code> it is possible to
+compute the degree-of-LHS for different expansion sizes in a given
+interval.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expansions</span> <span class="o">=</span> <span class="n">eLHS</span><span class="o">.</span><span class="n">optimal_expansion</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;List of expansions sorted by the corresponding degree:&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">expansion</span> <span class="ow">in</span> <span class="n">expansions</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">expansion</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>List of expansions sorted by the corresponding degree:
+(0, 1.0)
+(6, 0.9807692307692307)
+(8, 0.9642857142857143)
+(9, 0.9482758620689655)
+(7, 0.9444444444444444)
+(5, 0.94)
+(4, 0.9375)</p>
+</section>
+<section id="optimized-expansion">
+<h2>Optimized expansion<a class="headerlink" href="#optimized-expansion" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Scipy’s implementation of Latin Hypercube sampling allows to optimize
+the sample set using the discrepancy (Scipy.stats.qmc.discrepancy) as
+a metric.</div>
+<div class="line">A lower discrepancy corresponds to a better space-filling.</div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats.qmc</span><span class="w"> </span><span class="kn">import</span> <span class="n">discrepancy</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">P</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_sampler</span> <span class="o">=</span> <span class="n">LatinHypercube</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set</span> <span class="o">=</span> <span class="n">lhs_sampler</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_sampler_opt</span> <span class="o">=</span> <span class="n">LatinHypercube</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">optimization</span><span class="o">=</span><span class="s1">&#39;random-cd&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_opt</span> <span class="o">=</span> <span class="n">lhs_sampler_opt</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of LHS without optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of LHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Discrepancy of LHS without optimization: 0.0101
+Discrepancy of LHS with optimization: 0.0025</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__</span></code> is it possible to ask for an optimized
+expansion with the keyword <code class="docutils literal notranslate"><span class="pre">optimize=</span></code>, where the available metrics
+are: - discrepancy (Scipy.stats.qmc.discrepancy) - geometric discrepancy
+(Scipy.stats.qmc.geometric_discrepancy)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded_opt</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="s1">&#39;discrepancy&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS without optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Discrepancy of eLHS without optimization: 0.0040
+Discrepancy of eLHS with optimization: 0.0002</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Readme" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="auto.html" class="btn btn-neutral float-right" title="Package documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright (c) Matteo Boschini, Davide Gerosa.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
