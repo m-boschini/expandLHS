@@ -1,0 +1,13 @@
+numpy
+scipy >= 1.8.0
+numba >= 0.57.0
+sphinx>=1.8.2
+sphinx-book-theme
+numpydoc
+recommonmark
+sphinx_rtd_theme
+myst-parser
+sphinx-mdinclude
+nbsphinx
+nb2plots
+ipykernel
