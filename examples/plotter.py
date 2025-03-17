@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from expandLHS import ExpandLHS
+from typing import Union, Optional
 
 
 def _plot_optionals(
@@ -11,14 +12,14 @@ def _plot_optionals(
     ax : plt.Axes,
     labels : str,
     grid : bool,
-    voids : np.ndarray | None,
+    voids : Optional[np.ndarray],
     voids_color : str,
     voids_alpha : float,
-    overlaps :  np.ndarray | None,
+    overlaps :  Optional[np.ndarray],
     overlaps_color : str,
     overlaps_alpha : float,
-    x_label : str | None,
-    y_label : str | None
+    x_label : Optional[str],
+    y_label : Optional[str]
     ):
     """
     Plot optional features of the LHS sample set.
@@ -71,24 +72,24 @@ def _plot_optionals(
     
 
 def plot(
-    samples : np.ndarray | list[np.ndarray],
+    samples : Union[np.ndarray | list[np.ndarray]],
     M : int = 1,
     *,
-    ax : plt.Axes = None,
-    labels: str | list[str] | None = None,
-    colors : str | list[str] = "red",
-    markers : str | list[str] = "o",
-    sizes : float | list[float] = 25.0,
+    ax : Optional[plt.Axes] =None,
+    labels: Union[str, list[str], None] = None,
+    colors : Union[str, list[str]] = "red",
+    markers : Union[str, list[str]] = "o",
+    sizes : Union[float, list[float]] = 25.0,
     index : int = 0,
     grid : bool = True,
-    voids : np.ndarray | None = None,
+    voids : Optional[np.ndarray] = None,
     voids_color : str = "grey",
     voids_alpha : float = 0.1,
-    overlaps : np.ndarray | None = None,
+    overlaps : Optional[np.ndarray] = None,
     overlaps_color : str = "red",
     overlaps_alpha : float = 0.1,
-    x_label : str | None = None,
-    y_label : str | None = None
+    x_label : Optional[str] = None,
+    y_label : Optional[str] = None
     ):
     """
     Plot LHS samples.
