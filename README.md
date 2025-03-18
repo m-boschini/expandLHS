@@ -16,6 +16,6 @@ The code is distributed under version control at
 - [github.com/m-boschini/expandLHS](https://github.com/m-boschini/expandLHS)
 
 The documentation is available at
-<!-- - [m-boschini.github.io/expandLHS](https://m-boschini.github.io/expandLHS) -->
+ - [m-boschini.github.io/expandLHS](https://m-boschini.github.io/expandLHS)
 
 `expandLHS` is released under the MIT License. 
