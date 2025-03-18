@@ -134,12 +134,12 @@ class ExpandLHS:
     Attributes
     ----------
     N : int
-        Cardinality of the sample set.
+        Number of samples.
         
     P : int
         Number of dimensions.
         
-    samples : numpy.ndarray with shape (N, P)
+    samples : array_like (N, P)
         Initial Latin Hypercube sample set.
    
     
@@ -176,11 +176,10 @@ class ExpandLHS:
         Initialize the LHSExpansion class.
 
         Args:
-            samples : numpy.ndarray
+            samples : array_like (N, P)
                 Latin Hypercube sample set with N samples in P dimensions. 
                 
         """
-        
         
         self.N = samples.shape[0]
         self.P = samples.shape[1]
@@ -206,12 +205,12 @@ class ExpandLHS:
             M : int (optional) 
                 Number of new intervals to add. Defaults to 1.
             
-            samples : numpy.ndarray (optional)
+            samples : array_like (optional)
                 If given, the regridding will be performed on this set and not
                 on the default one.
 
         Returns:
-            voids : numpy.ndarray(N + M, P)
+            voids : numpy.ndarray (N + M, P)
                 A boolean array indicating the empty intervals. 
                 In each dimension the number of voids is >= M, as adding M 
                 intervals may cause two samples to fall in the same bin, 
@@ -245,12 +244,12 @@ class ExpandLHS:
             M : int (optional)
                 Number of new intervals to add. Defaults to 1.
                 
-            samples : numpy.ndarray (optional)
+            samples : arrray_like (optional)
                 If given, the counting of samples will be performed on this set 
                 and not on the default one.
 
         Returns:
-            population : numpy.ndarray(N + M, P) 
+            population : numpy.ndarray (N + M, P) 
                 An array indicating the number of samples in each interval.
                 Adding M intervals may cause two samples to fall in the same 
                 bin, thus leaving a permanent void.
@@ -275,8 +274,8 @@ class ExpandLHS:
         M : int = 1
         ) -> float:
         """
-        Compute the degree-of-LHS of the current sample set 
-        when expanded to size N + M, assuming M new samples will be generated.
+        Compute the degree-of-LHS of the current sample set when expanded to 
+        size N + M, assuming M new samples will be generated.
         If M = 0, compute the degree of the initial set.
 
         Args:
@@ -350,11 +349,11 @@ class ExpandLHS:
             M : int 
                 Number of new samples to generate.
                 
-            voids : numpy.ndarray(N + M, P) 
+            voids : array_like (N + M, P) 
                 Boolean array indicating the empty intervals.
 
         Returns:
-            new samples : numpy.ndarray(M, P)
+            new samples : numpy.ndarray (M, P)
                 New samples generated within the voids.
         """
         
@@ -382,21 +381,20 @@ class ExpandLHS:
             M : int
                 Number of new samples to generate.
                 
-            voids : numpy.ndarray(N + M, P) 
+            voids : array_like (N + M, P) 
                 Boolean array indicating the empty intervals.
                 
             criterion : str 
-                Optimization strategy. Available methods are 
-                centered discrepancy and geometric discrepancy.
+                Optimization strategy.
                 
             trials : int 
-                Number of expansions to sample. Defaults to 1000.
+                Number of expansions to sample. 
                 
             tol : float
-                Tolerance for the optimization. Defaults to 1e-4.
+                Tolerance for the optimization.
 
         Returns:
-            opt_samples : numpy.ndarray(M, P) 
+            opt_samples : numpy.ndarray (M, P) 
                 New samples generated within the voids and optimized with the 
                 given criterion.
         """
@@ -446,7 +444,9 @@ class ExpandLHS:
         samples with lower centered discrepancy (space filling metric) 
         or higher geometric discrepancy (pairwise minimum distance).
         Both these metrics are implemented in Scipy.stats.qmc.
-        The code produce a number of possible expansion equal to 'trials'. 
+        The code generates a number of possible expansion equal to 'trials' and 
+        returns the best set with respect to the choosen metric within a certain 
+        absolute tolerance defined by 'tol'. 
         It is not garanteed that the final sample will be the absolute minimum 
         of the discrepancy or the absolute maximum of the geometric 
         discrepancy for the given sample. The optimization through geometric
@@ -462,17 +462,17 @@ class ExpandLHS:
                 Seed for the random number generator. Defaults to None.
                 
             optimize : str | None (optional)
-                Optimization criterion, the available options are centered
-                discrepancy and geometric discrepancy
+                Optimization criterion, the available options are 'discrepancy'
+                and 'geometric_discrepancy'. Defaults to None.
                 
             trials : int (optional)
-                number of trials for the optimal expansion set. Defoult to 1000.
+                Number of trials for the optimal expansion set. Defaults to 1000.
                 
             tol : float (optional)
                 Tolerance for the optimization. Defaults to 1e-4.
 
         Returns:
-            expansion : numpy.ndarray(N + M, P)
+            expansion : numpy.ndarray (N + M, P)
                 Expanded Latin Hypercube sample set.
         """
         
