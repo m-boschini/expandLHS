@@ -109,11 +109,11 @@ strategy, but only on the initial set and the new partition of the intervals.</p
 <dl class="field-list simple">
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Cardinality of the sample set.</p>
+<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Number of samples.</p>
 </dd>
 <dt><strong>P</strong><span class="classifier">int</span></dt><dd><p>Number of dimensions.</p>
 </dd>
-<dt><strong>samples</strong><span class="classifier">numpy.ndarray with shape (N, P)</span></dt><dd><p>Initial Latin Hypercube sample set.</p>
+<dt><strong>samples</strong><span class="classifier">array_like (N, P)</span></dt><dd><p>Initial Latin Hypercube sample set.</p>
 </dd>
 </dl>
 </dd>
@@ -157,20 +157,19 @@ a number of samplings equal to trials.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>M</strong> – int
 Number of new samples to generate.</p></li>
-<li><p><strong>voids</strong> – numpy.ndarray(N + M, P)
+<li><p><strong>voids</strong> – array_like (N + M, P)
 Boolean array indicating the empty intervals.</p></li>
 <li><p><strong>criterion</strong> – str
-Optimization strategy. Available methods are
-centered discrepancy and geometric discrepancy.</p></li>
+Optimization strategy.</p></li>
 <li><p><strong>trials</strong> – int
-Number of expansions to sample. Defaults to 1000.</p></li>
+Number of expansions to sample.</p></li>
 <li><p><strong>tol</strong> – float
-Tolerance for the optimization. Defaults to 1e-4.</p></li>
+Tolerance for the optimization.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>numpy.ndarray(M, P)</dt><dd><p>New samples generated within the voids and optimized with the
+<dt>numpy.ndarray (M, P)</dt><dd><p>New samples generated within the voids and optimized with the
 given criterion.</p>
 </dd>
 </dl>
@@ -192,13 +191,13 @@ preserving as much as possible the properties of a Latin Hypercube.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>M</strong> – int
 Number of new samples to generate.</p></li>
-<li><p><strong>voids</strong> – numpy.ndarray(N + M, P)
+<li><p><strong>voids</strong> – array_like (N + M, P)
 Boolean array indicating the empty intervals.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>numpy.ndarray(M, P)</dt><dd><p>New samples generated within the voids.</p>
+<dt>numpy.ndarray (M, P)</dt><dd><p>New samples generated within the voids.</p>
 </dd>
 </dl>
 </p>
@@ -217,7 +216,9 @@ Boolean array indicating the empty intervals.</p></li>
 samples with lower centered discrepancy (space filling metric)
 or higher geometric discrepancy (pairwise minimum distance).
 Both these metrics are implemented in Scipy.stats.qmc.
-The code produce a number of possible expansion equal to ‘trials’.
+The code generates a number of possible expansion equal to ‘trials’ and
+returns the best set with respect to the choosen metric within a certain
+absolute tolerance defined by ‘tol’.
 It is not garanteed that the final sample will be the absolute minimum
 of the discrepancy or the absolute maximum of the geometric
 discrepancy for the given sample. The optimization through geometric
@@ -231,17 +232,17 @@ Number of new samples to generate. Defaults to 1.</p></li>
 <li><p><strong>seed</strong> – int | None (optional)
 Seed for the random number generator. Defaults to None.</p></li>
 <li><p><strong>optimize</strong> – str | None (optional)
-Optimization criterion, the available options are centered
-discrepancy and geometric discrepancy</p></li>
+Optimization criterion, the available options are ‘discrepancy’
+and ‘geometric_discrepancy’. Defaults to None.</p></li>
 <li><p><strong>trials</strong> – int (optional)
-number of trials for the optimal expansion set. Defoult to 1000.</p></li>
+Number of trials for the optimal expansion set. Defaults to 1000.</p></li>
 <li><p><strong>tol</strong> – float (optional)
 Tolerance for the optimization. Defaults to 1e-4.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>numpy.ndarray(N + M, P)</dt><dd><p>Expanded Latin Hypercube sample set.</p>
+<dt>numpy.ndarray (N + M, P)</dt><dd><p>Expanded Latin Hypercube sample set.</p>
 </dd>
 </dl>
 </p>
@@ -261,14 +262,14 @@ Tolerance for the optimization. Defaults to 1e-4.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>M</strong> – int (optional)
 Number of new intervals to add. Defaults to 1.</p></li>
-<li><p><strong>samples</strong> – numpy.ndarray (optional)
+<li><p><strong>samples</strong> – arrray_like (optional)
 If given, the counting of samples will be performed on this set
 and not on the default one.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>numpy.ndarray(N + M, P)</dt><dd><p>An array indicating the number of samples in each interval.
+<dt>numpy.ndarray (N + M, P)</dt><dd><p>An array indicating the number of samples in each interval.
 Adding M intervals may cause two samples to fall in the same
 bin, thus leaving a permanent void.</p>
 </dd>
@@ -284,8 +285,8 @@ bin, thus leaving a permanent void.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="expandLHS.ExpandLHS.degree">
 <span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.degree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.degree" title="Link to this definition"></a></dt>
-<dd><p>Compute the degree-of-LHS of the current sample set
-when expanded to size N + M, assuming M new samples will be generated.
+<dd><p>Compute the degree-of-LHS of the current sample set when expanded to
+size N + M, assuming M new samples will be generated.
 If M = 0, compute the degree of the initial set.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -352,14 +353,14 @@ each dimension.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>M</strong> – int (optional)
 Number of new intervals to add. Defaults to 1.</p></li>
-<li><p><strong>samples</strong> – numpy.ndarray (optional)
+<li><p><strong>samples</strong> – array_like (optional)
 If given, the regridding will be performed on this set and not
 on the default one.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>numpy.ndarray(N + M, P)</dt><dd><p>A boolean array indicating the empty intervals.
+<dt>numpy.ndarray (N + M, P)</dt><dd><p>A boolean array indicating the empty intervals.
 In each dimension the number of voids is &gt;= M, as adding M
 intervals may cause two samples to fall in the same bin,
 thus leaving a permanent void.</p>

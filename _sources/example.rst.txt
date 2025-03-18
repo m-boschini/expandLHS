@@ -2,7 +2,7 @@ Examples
 --------
 
 `This Jupyter
-Notebook <https://github.com/m-boschini/expandLHS/blob/master/expandLHS/expandLHS.py>`__
+Notebook <https://github.com/m-boschini/expandLHS/blob/master/examples/LHS_examples.ipynb>`__
 aims at showing the properties of the ``expandLHS`` module.
 
 .. nbplot::
@@ -19,11 +19,11 @@ aims at showing the properties of the ``expandLHS`` module.
 
     Matplotlib is building the font cache; this may take a moment.
 
-Sample a Latin Hypercube
+Expand a Latin Hypercube
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let’s start sampling a random Latin Hypercube as implemented in
-Scipy.stats.qmc.LatinHypercube.
+`Scipy.stats.qmc.LatinHypercube <https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.qmc.LatinHypercube.html>`__.
 
 .. nbplot::
 
@@ -38,17 +38,17 @@ Scipy.stats.qmc.LatinHypercube.
 
 
 
-Expand the Latin Hypercube
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Now the aim is to add new samples without modifying the ones we already
+sampled. This procedure may cause two samples to fall in the same
+interval, even if they do not overlap in the initial set.
 
-| Now the aim is to add new samples without modifying the ones we
-  already sampled.
-| This procedure may cause two samples to fall in the same interval,
-  even if they do not overlap in the initial set.
-| As a first step we need to resize our gridding with
-  ``ExpandLHS.regridding``.
-| The method ``ExpandLHS.count_samples`` comput the number of samples in
-  each interval for each dimension.
+As a first step we need to resize the binning of the intervals, we can
+see the effect of this by running ``ExpandLHS.regridding`` explicitly.
+The method ``ExpandLHS.count_samples`` allows to compute the number of
+samples in each interval for each dimension, this can be used to detect
+eventual overlaps. It is not necessary to call these two methods
+explicitly to expand an LHS, their outputs are used here for explanatory
+reason.
 
 .. nbplot::
 
@@ -64,7 +64,9 @@ Expand the Latin Hypercube
 
 
 
-Then, is it possible to perform the expansion by ``ExpandLHS.__call__``
+The class call ``ExpandLHS.__call__`` performs the entire expansion
+process, thus it regrids the hypercube accounting for the new points and
+performs the sampling.
 
 .. nbplot::
 
@@ -81,11 +83,12 @@ Then, is it possible to perform the expansion by ``ExpandLHS.__call__``
 Degree of an expansion
 ~~~~~~~~~~~~~~~~~~~~~~
 
-| The regridding of the space may cause some overlaps and voids, which
-  imply that the new set is not a Latin Hypercube anymore. We define a
-  quantity to measure the degree-of-LHS of a samples set.
-| This estimate is performed with the method ``ExpandLHS.degree``.
-| A perfect Latin Hypercube has always a degree of 1.
+The regridding of the space may cause some overlaps and voids, which
+imply that the new set is not a Latin Hypercube anymore.
+
+We define a metric to measure the degree-of-LHS of a samples set. This
+estimate is performed with the method ``ExpandLHS.degree``. A perfect
+Latin Hypercube has always a degree of 1.
 
 .. nbplot::
 
@@ -101,30 +104,37 @@ interval.
 .. nbplot::
 
     >>> expansions = eLHS.optimal_expansion((4, 9), verbose=True)
-    >>> print(f'List of expansions sorted by the corresponding degree:')
+    >>> print(f'List of expansions sorted by the corresponding degree:\n')
     >>> for expansion in expansions:
-    ...     print(expansion)
+    ...     print(f'({expansion[0]}, {expansion[1]:.4f})\n')
 
     List of expansions sorted by the corresponding degree:
-    (0, 1.0)
-    (5, 0.96)
-    (6, 0.9230769230769231)
-    (9, 0.9137931034482758)
-    (7, 0.9074074074074074)
-    (4, 0.8958333333333334)
-    (8, 0.8928571428571429)
+    
+    (0, 1.0000)
+    
+    (9, 0.9655)
+    
+    (5, 0.9600)
+    
+    (8, 0.9464)
+    
+    (7, 0.9444)
+    
+    (4, 0.9375)
+    
+    (6, 0.9231)
+    
 
 Optimized expansion
 ~~~~~~~~~~~~~~~~~~~
 
-| Scipy’s implementation of Latin Hypercube sampling allows to optimize
-  the sample set using the discrepancy (Scipy.stats.qmc.discrepancy) as
-  a metric.
-| A lower discrepancy corresponds to a better space-filling.
+Scipy’s implementation of Latin Hypercube sampling allows to optimize
+the sample set using the centered discrepancy. A lower value for this
+metric corresponds to a better space-filling of the hypercube.
 
 .. nbplot::
 
-    >>> from scipy.stats.qmc import discrepancy
+    >>> from scipy.stats.qmc import discrepancy, geometric_discrepancy
     >>>
     >>> N = 100
     >>> P = 6
@@ -135,26 +145,41 @@ Optimized expansion
     >>> lhs_sampler_opt = LatinHypercube(P, optimization='random-cd')
     >>> lhs_set_opt = lhs_sampler_opt.random(N)
     >>>
-    >>> print(f'Discrepancy of LHS without optimization: {discrepancy(lhs_set):.4f}')
+    >>> print(f'Discrepancy of LHS without optimization: {discrepancy(lhs_set):.4f}\n')
     >>> print(f'Discrepancy of LHS with optimization: {discrepancy(lhs_set_opt):.4f}')
 
 
-    Discrepancy of LHS without optimization: 0.0076
-    Discrepancy of LHS with optimization: 0.0022
+    Discrepancy of LHS without optimization: 0.0060
+    
+    Discrepancy of LHS with optimization: 0.0023
 
-When using ``ExpandLHS.__call__`` is it possible to ask for an optimized
-expansion with the keyword ``optimize=``, where the available metrics
-are: - discrepancy (Scipy.stats.qmc.discrepancy) - geometric discrepancy
-(Scipy.stats.qmc.geometric_discrepancy)
+| When using ``ExpandLHS.__call__`` is it possible to ask for an
+  optimized expansion with the keyword ``optimize=``, where the
+  available metrics are:   - discrepancy
+  (`Scipy.stats.qmc.discrepancy <https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.qmc.discrepancy.html#scipy.stats.qmc.discrepancy>`__)
+| - geometric discrepancy
+  (`Scipy.stats.qmc.geometric_discrepancy <https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.qmc.geometric_discrepancy.html#scipy.stats.qmc.geometric_discrepancy>`__)
 
 .. nbplot::
 
     >>> lhs_set_expanded_opt = eLHS(M, optimize='discrepancy')
     >>>
-    >>> print(f'Discrepancy of eLHS without optimization: {discrepancy(lhs_set_expanded):.4f}')
+    >>> print(f'Discrepancy of eLHS without optimization: {discrepancy(lhs_set_expanded):.4f}\n')
     >>> print(f'Discrepancy of eLHS with optimization: {discrepancy(lhs_set_expanded_opt):.4f}')
 
-    Discrepancy of eLHS without optimization: 0.0033
+    Discrepancy of eLHS without optimization: 0.0016
+    
     Discrepancy of eLHS with optimization: 0.0002
+
+.. nbplot::
+
+    >>> lhs_set_expanded_opt = eLHS(M, optimize='geometric_discrepancy')
+    >>>
+    >>> print(f'Discrepancy of eLHS without optimization: {geometric_discrepancy(lhs_set_expanded):.4f}\n')
+    >>> print(f'Discrepancy of eLHS with optimization: {geometric_discrepancy(lhs_set_expanded_opt):.4f}')
+
+    Discrepancy of eLHS without optimization: 0.0393
+    
+    Discrepancy of eLHS with optimization: 0.0139
 
 
