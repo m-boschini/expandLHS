@@ -106,12 +106,12 @@ interval.
 
     List of expansions sorted by the corresponding degree:
     (0, 1.0)
-    (6, 0.9807692307692307)
     (8, 0.9642857142857143)
     (9, 0.9482758620689655)
-    (7, 0.9444444444444444)
-    (5, 0.94)
-    (4, 0.9375)
+    (7, 0.9259259259259259)
+    (6, 0.9038461538461539)
+    (5, 0.9)
+    (4, 0.8958333333333334)
 
 Optimized expansion
 ~~~~~~~~~~~~~~~~~~~
@@ -138,8 +138,8 @@ Optimized expansion
     >>> print(f'Discrepancy of LHS with optimization: {discrepancy(lhs_set_opt):.4f}')
 
 
-    Discrepancy of LHS without optimization: 0.0101
-    Discrepancy of LHS with optimization: 0.0025
+    Discrepancy of LHS without optimization: 0.0071
+    Discrepancy of LHS with optimization: 0.0024
 
 When using ``ExpandLHS.__call__`` is it possible to ask for an optimized
 expansion with the keyword ``optimize=``, where the available metrics
@@ -153,7 +153,7 @@ are: - discrepancy (Scipy.stats.qmc.discrepancy) - geometric discrepancy
     >>> print(f'Discrepancy of eLHS without optimization: {discrepancy(lhs_set_expanded):.4f}')
     >>> print(f'Discrepancy of eLHS with optimization: {discrepancy(lhs_set_expanded_opt):.4f}')
 
-    Discrepancy of eLHS without optimization: 0.0040
-    Discrepancy of eLHS with optimization: 0.0002
+    Discrepancy of eLHS without optimization: 0.0029
+    Discrepancy of eLHS with optimization: 0.0003
 
 

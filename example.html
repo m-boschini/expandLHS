@@ -181,12 +181,12 @@ interval.</p>
 </div>
 <p>List of expansions sorted by the corresponding degree:
 (0, 1.0)
-(6, 0.9807692307692307)
 (8, 0.9642857142857143)
 (9, 0.9482758620689655)
-(7, 0.9444444444444444)
-(5, 0.94)
-(4, 0.9375)</p>
+(7, 0.9259259259259259)
+(6, 0.9038461538461539)
+(5, 0.9)
+(4, 0.8958333333333334)</p>
 </section>
 <section id="optimized-expansion">
 <h2>Optimized expansion<a class="headerlink" href="#optimized-expansion" title="Link to this heading"></a></h2>
@@ -211,8 +211,8 @@ a metric.</div>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of LHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of LHS without optimization: 0.0101
-Discrepancy of LHS with optimization: 0.0025</p>
+<p>Discrepancy of LHS without optimization: 0.0071
+Discrepancy of LHS with optimization: 0.0024</p>
 <p>When using <code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__</span></code> is it possible to ask for an optimized
 expansion with the keyword <code class="docutils literal notranslate"><span class="pre">optimize=</span></code>, where the available metrics
 are: - discrepancy (Scipy.stats.qmc.discrepancy) - geometric discrepancy
@@ -223,8 +223,8 @@ are: - discrepancy (Scipy.stats.qmc.discrepancy) - geometric discrepancy
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.0040
-Discrepancy of eLHS with optimization: 0.0002</p>
+<p>Discrepancy of eLHS without optimization: 0.0029
+Discrepancy of eLHS with optimization: 0.0003</p>
 </section>
 </section>
 

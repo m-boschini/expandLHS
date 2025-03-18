@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; expandLHS 1.0.0 documentation</title>
+  <title>expandLHS &mdash; expandLHS 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -62,7 +62,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">expandLHS</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -71,7 +71,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p>../README.md</p>
+  <!-- [![DOI](link)](link) --><section id="expandlhs">
+<h1>expandLHS<a class="headerlink" href="#expandlhs" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">expandLHS</span></code> is a Python module that implements a model-free expansion algorithm for a Latin Hypercube sample set.
+The Latin Hypercube Sampling (LHS) is a stratified sampling technique that allows to generate N near-random samples
+in the $$P$$-dimensional hypercube $$[0, 1)^P$$. It is a space-filling sampling strategy that ensures the one-dimensional
+projection property, i.e. the samples are uniformly distributed in each one-dimension projection. This module extends the usage of this technique by implementing an expansion algorithm. Starting from an initial LHS set of size $$N$$, <code class="docutils literal notranslate"><span class="pre">expandLHS</span></code> samples $$M$$ additional points in a LHS-like fashion trying to preserve the LHS properties at most.</p>
+<p>This algorithm is introduced in</p>
+<ul class="simple">
+<li><p><em>Expansion strategy for Latin Hypercube sampling in simulation design.</em>
+M. Boschini, D. Gerosa, A. Crespi, M. Falcone</p></li>
+</ul>
+<!-- [link](link) --><p>The code is distributed under version control at</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/m-boschini/expandLHS">github.com/m-boschini/expandLHS</a></p></li>
+</ul>
+<p>The documentation is available at</p>
+<!-- - [m-boschini.github.io/expandLHS](https://m-boschini.github.io/expandLHS) --><p><code class="docutils literal notranslate"><span class="pre">expandLHS</span></code> is released under the MIT License.</p>
+</section>
 
 
            </div>
