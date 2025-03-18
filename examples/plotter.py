@@ -72,7 +72,7 @@ def _plot_optionals(
     
 
 def plot(
-    samples : Union[np.ndarray | list[np.ndarray]],
+    samples : Union[np.ndarray, list[np.ndarray]],
     M : int = 1,
     *,
     ax : Optional[plt.Axes] =None,
