@@ -126,7 +126,7 @@ even if they do not overlap in the initial set.</div>
 <div class="line">The method <code class="docutils literal notranslate"><span class="pre">ExpandLHS.count_samples</span></code> comput the number of samples in
 each interval for each dimension.</div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># number of samples to add</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># number of samples to add</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eLHS</span> <span class="o">=</span> <span class="n">ExpandLHS</span><span class="p">(</span><span class="n">lhs_set</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">voids</span> <span class="o">=</span> <span class="n">eLHS</span><span class="o">.</span><span class="n">regridding</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
@@ -169,7 +169,7 @@ quantity to measure the degree-of-LHS of a samples set.</div>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;degree-of-LHS = </span><span class="si">{</span><span class="n">degree</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>degree-of-LHS = 0.964</p>
+<p>degree-of-LHS = 0.880</p>
 <p>Using the method <code class="docutils literal notranslate"><span class="pre">ExpandLHS.optimal_expansion</span></code> it is possible to
 compute the degree-of-LHS for different expansion sizes in a given
 interval.</p>
@@ -181,12 +181,12 @@ interval.</p>
 </div>
 <p>List of expansions sorted by the corresponding degree:
 (0, 1.0)
-(8, 0.9642857142857143)
-(9, 0.9482758620689655)
+(6, 0.9615384615384616)
 (7, 0.9259259259259259)
-(6, 0.9038461538461539)
-(5, 0.9)
-(4, 0.8958333333333334)</p>
+(8, 0.9107142857142857)
+(4, 0.8958333333333334)
+(5, 0.88)
+(9, 0.8793103448275862)</p>
 </section>
 <section id="optimized-expansion">
 <h2>Optimized expansion<a class="headerlink" href="#optimized-expansion" title="Link to this heading"></a></h2>
@@ -200,7 +200,7 @@ a metric.</div>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="mi">92</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_sampler</span> <span class="o">=</span> <span class="n">LatinHypercube</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set</span> <span class="o">=</span> <span class="n">lhs_sampler</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
@@ -211,7 +211,7 @@ a metric.</div>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of LHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of LHS without optimization: 0.0071
+<p>Discrepancy of LHS without optimization: 0.0063
 Discrepancy of LHS with optimization: 0.0024</p>
 <p>When using <code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__</span></code> is it possible to ask for an optimized
 expansion with the keyword <code class="docutils literal notranslate"><span class="pre">optimize=</span></code>, where the available metrics
@@ -223,8 +223,8 @@ are: - discrepancy (Scipy.stats.qmc.discrepancy) - geometric discrepancy
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.0029
-Discrepancy of eLHS with optimization: 0.0003</p>
+<p>Discrepancy of eLHS without optimization: 0.0023
+Discrepancy of eLHS with optimization: 0.0002</p>
 </section>
 </section>
 

@@ -51,7 +51,7 @@ Expand the Latin Hypercube
 
 .. nbplot::
 
-    >>> M = 8 # number of samples to add
+    >>> M = 5 # number of samples to add
     >>>
     >>> eLHS = ExpandLHS(lhs_set)
     >>> voids = eLHS.regridding(M)
@@ -91,7 +91,7 @@ Degree of an expansion
     >>> degree = eLHS.degree(M)
     >>> print(f'degree-of-LHS = {degree:.3f}')
 
-    degree-of-LHS = 0.964
+    degree-of-LHS = 0.880
 
 Using the method ``ExpandLHS.optimal_expansion`` it is possible to
 compute the degree-of-LHS for different expansion sizes in a given
@@ -106,12 +106,12 @@ interval.
 
     List of expansions sorted by the corresponding degree:
     (0, 1.0)
-    (8, 0.9642857142857143)
-    (9, 0.9482758620689655)
+    (6, 0.9615384615384616)
     (7, 0.9259259259259259)
-    (6, 0.9038461538461539)
-    (5, 0.9)
+    (8, 0.9107142857142857)
     (4, 0.8958333333333334)
+    (5, 0.88)
+    (9, 0.8793103448275862)
 
 Optimized expansion
 ~~~~~~~~~~~~~~~~~~~
@@ -127,7 +127,7 @@ Optimized expansion
     >>>
     >>> N = 100
     >>> P = 6
-    >>> M = 80
+    >>> M = 92
     >>>
     >>> lhs_sampler = LatinHypercube(P)
     >>> lhs_set = lhs_sampler.random(N)
@@ -138,7 +138,7 @@ Optimized expansion
     >>> print(f'Discrepancy of LHS with optimization: {discrepancy(lhs_set_opt):.4f}')
 
 
-    Discrepancy of LHS without optimization: 0.0071
+    Discrepancy of LHS without optimization: 0.0063
     Discrepancy of LHS with optimization: 0.0024
 
 When using ``ExpandLHS.__call__`` is it possible to ask for an optimized
@@ -153,7 +153,7 @@ are: - discrepancy (Scipy.stats.qmc.discrepancy) - geometric discrepancy
     >>> print(f'Discrepancy of eLHS without optimization: {discrepancy(lhs_set_expanded):.4f}')
     >>> print(f'Discrepancy of eLHS with optimization: {discrepancy(lhs_set_expanded_opt):.4f}')
 
-    Discrepancy of eLHS without optimization: 0.0029
-    Discrepancy of eLHS with optimization: 0.0003
+    Discrepancy of eLHS without optimization: 0.0023
+    Discrepancy of eLHS with optimization: 0.0002
 
 
