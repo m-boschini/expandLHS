@@ -8,9 +8,8 @@ in the $P$-dimensional hypercube $[0, 1)^P$. It is a space-filling sampling stra
 projection property, i.e. the samples are uniformly distributed in each one-dimension projection. This module extends the usage of this technique by implementing an expansion algorithm. Starting from an initial LHS set of size $N$, `expandLHS` samples $M$ additional points in a LHS-like fashion trying to preserve the LHS properties at most.
 
 This algorithm is introduced in
-- *Expansion strategy for Latin Hypercube sampling in simulation design.* 
-M. Boschini, D. Gerosa, A. Crespi, M. Falcone
-<!-- [link](link) -->
+- *“LHS in LHS”: a new expansion strategy for Latin hypercube sampling in simulation design.* 
+M. Boschini, D. Gerosa, A. Crespi, M. Falcone (to be published)
 
 The code is distributed under version control at
 - [github.com/m-boschini/expandLHS](https://github.com/m-boschini/expandLHS)
