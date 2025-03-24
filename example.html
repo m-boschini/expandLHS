@@ -165,27 +165,23 @@ Latin Hypercube has always a degree of 1.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;LHS degree = </span><span class="si">{</span><span class="n">degree</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>LHS degree = 0.880</p>
+<p>LHS degree = 0.920</p>
 <p>Using the method <code class="docutils literal notranslate"><span class="pre">ExpandLHS.optimal_expansion</span></code> it is possible to
 compute the degree-of-LHS for different expansion sizes in a given
 interval.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expansions</span> <span class="o">=</span> <span class="n">eLHS</span><span class="o">.</span><span class="n">optimal_expansion</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;List of expansions sorted by the corresponding degree:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">expansion</span> <span class="ow">in</span> <span class="n">expansions</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">expansion</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">expansion</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">) </span><span class="se">\n</span><span class="s1">&#39;</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">List of expansions sorted by the corresponding degree: </span><span class="se">\n</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">expansion</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">expansion</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>List of expansions sorted by the corresponding degree:</p>
 <p>(0, 1.0000)
-(8, 0.9464)
-(6, 0.9231)
-(7, 0.9074)
-(5, 0.8800)
-(9, 0.8793)
+(7, 0.9630)
+(5, 0.9200)
+(9, 0.9138)
+(8, 0.9107)
+(6, 0.8846)
 (4, 0.8750)</p>
 </section>
 <section id="optimized-expansion">
@@ -195,9 +191,9 @@ the sample set using the centered discrepancy. A lower value for this
 metric corresponds to a better space-filling of the hypercube.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats.qmc</span><span class="w"> </span><span class="kn">import</span> <span class="n">discrepancy</span><span class="p">,</span> <span class="n">geometric_discrepancy</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">50</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">P</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="mi">92</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="mi">42</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_sampler</span> <span class="o">=</span> <span class="n">LatinHypercube</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set</span> <span class="o">=</span> <span class="n">lhs_sampler</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
@@ -209,8 +205,8 @@ metric corresponds to a better space-filling of the hypercube.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of LHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of LHS without optimization: 0.0070</p>
-<p>Discrepancy of LHS with optimization: 0.0024</p>
+<p>Discrepancy of LHS without optimization: 0.0131</p>
+<p>Discrepancy of LHS with optimization: 0.0062</p>
 <div class="line-block">
 <div class="line">When using <code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__</span></code> is it possible to ask for an
 optimized expansion with the keyword <code class="docutils literal notranslate"><span class="pre">optimize=</span></code>, where the
@@ -219,24 +215,28 @@ available metrics are:   - discrepancy
 <div class="line">- geometric discrepancy
 (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.qmc.geometric_discrepancy.html#scipy.stats.qmc.geometric_discrepancy">Scipy.stats.qmc.geometric_discrepancy</a>)</div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded_opt</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="s1">&#39;discrepancy&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eLHS</span> <span class="o">=</span> <span class="n">ExpandLHS</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded_opt</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="s1">&#39;discrepancy&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of eLHS without optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.0021</p>
-<p>Discrepancy of eLHS with optimization: 0.0002</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded_opt</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="s1">&#39;geometric_discrepancy&#39;</span><span class="p">)</span>
+<p>Discrepancy of eLHS without optimization: 0.0059</p>
+<p>Discrepancy of eLHS with optimization: 0.0054</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eLHS</span> <span class="o">=</span> <span class="n">ExpandLHS</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded_opt</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="s1">&#39;geometric_discrepancy&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of eLHS without optimization: </span><span class="si">{</span><span class="n">geometric_discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">geometric_discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.0325</p>
-<p>Discrepancy of eLHS with optimization: 0.0149</p>
+<p>Discrepancy of eLHS without optimization: 0.2072</p>
+<p>Discrepancy of eLHS with optimization: 0.3174</p>
 </section>
 </section>
 
