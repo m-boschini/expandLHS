@@ -14,8 +14,6 @@ import sys
 
 import sphinx
 
-from recommonmark.parser import CommonMarkParser
-
 sys.path.insert(0, os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('../expandLHS'))
 sys.path.insert(0, os.path.abspath('../examples'))
@@ -49,12 +47,21 @@ extensions = [
     # 'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
-    #'sphinx.ext.githubpages',
-    #'recommonmark',
-    'sphinx_mdinclude',
+    'sphinx.ext.githubpages',
+    'myst_parser',
+    'sphinx_design',
     'sphinx.ext.napoleon',
     'nbsphinx',
     'nb2plots']
+
+myst_enable_extensions = [
+    'colon_fence',
+    'html_admonition',
+    'html_image',
+    'substitution',
+    'deflist',
+    'amsmath',
+    'dollarmath']
 
 napoleon_custom_sections = ("Call","params_style")
 
@@ -70,22 +77,6 @@ else:
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-
-# The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-#source_suffix = ['.rst', '.md']
-if sphinx.version_info < (1, 8):
-    source_parsers = {
-        '.md': CommonMarkParser,
-    }
-    source_suffix = ['.rst', '.md']
-else:
-    source_suffix = {
-        '.rst': 'restructuredtext',
-        '.txt': 'markdown',
-        '.md': 'markdown',
-    }
 
 # The master toctree document.
 master_doc = 'index'
