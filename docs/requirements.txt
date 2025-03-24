@@ -6,7 +6,7 @@ sphinx-book-theme
 numpydoc
 sphinx_rtd_theme
 myst-parser
-sphinx-mdinclude
+sphinx-design
 nbsphinx
 nb2plots
 ipykernel
