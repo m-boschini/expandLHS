@@ -95,7 +95,7 @@ Latin Hypercube has always a degree of 1.
     >>> degree = eLHS.degree(M)
     >>> print(f'degree-of-LHS = {degree:.3f}')
 
-    degree-of-LHS = 0.960
+    degree-of-LHS = 0.940
 
 Using the method ``ExpandLHS.optimal_expansion`` it is possible to
 compute the degree-of-LHS for different expansion sizes in a given
@@ -104,26 +104,18 @@ interval.
 .. nbplot::
 
     >>> expansions = eLHS.optimal_expansion((4, 9), verbose=True)
-    >>> print(f'List of expansions sorted by the corresponding degree:\n')
+    >>> print(f'List of expansions sorted by the corresponding degree:')
     >>> for expansion in expansions:
-    ...     print(f'({expansion[0]}, {expansion[1]:.4f})\n')
+    ...     print(f'({expansion[0]}, {expansion[1]:.4f})')
 
     List of expansions sorted by the corresponding degree:
-    
     (0, 1.0000)
-    
-    (9, 0.9655)
-    
-    (5, 0.9600)
-    
-    (8, 0.9464)
-    
-    (7, 0.9444)
-    
-    (4, 0.9375)
-    
-    (6, 0.9231)
-    
+    (8, 0.9821)
+    (6, 0.9615)
+    (9, 0.9483)
+    (5, 0.9400)
+    (7, 0.9259)
+    (4, 0.9167)
 
 Optimized expansion
 ~~~~~~~~~~~~~~~~~~~
@@ -145,13 +137,12 @@ metric corresponds to a better space-filling of the hypercube.
     >>> lhs_sampler_opt = LatinHypercube(P, optimization='random-cd')
     >>> lhs_set_opt = lhs_sampler_opt.random(N)
     >>>
-    >>> print(f'Discrepancy of LHS without optimization: {discrepancy(lhs_set):.4f}\n')
+    >>> print(f'Discrepancy of LHS without optimization: {discrepancy(lhs_set):.4f}')
     >>> print(f'Discrepancy of LHS with optimization: {discrepancy(lhs_set_opt):.4f}')
 
 
-    Discrepancy of LHS without optimization: 0.0060
-    
-    Discrepancy of LHS with optimization: 0.0023
+    Discrepancy of LHS without optimization: 0.0065
+    Discrepancy of LHS with optimization: 0.0022
 
 | When using ``ExpandLHS.__call__`` is it possible to ask for an
   optimized expansion with the keyword ``optimize=``, where the
@@ -164,22 +155,20 @@ metric corresponds to a better space-filling of the hypercube.
 
     >>> lhs_set_expanded_opt = eLHS(M, optimize='discrepancy')
     >>>
-    >>> print(f'Discrepancy of eLHS without optimization: {discrepancy(lhs_set_expanded):.4f}\n')
+    >>> print(f'Discrepancy of eLHS without optimization: {discrepancy(lhs_set_expanded):.4f}')
     >>> print(f'Discrepancy of eLHS with optimization: {discrepancy(lhs_set_expanded_opt):.4f}')
 
-    Discrepancy of eLHS without optimization: 0.0016
-    
+    Discrepancy of eLHS without optimization: 0.0024
     Discrepancy of eLHS with optimization: 0.0002
 
 .. nbplot::
 
     >>> lhs_set_expanded_opt = eLHS(M, optimize='geometric_discrepancy')
     >>>
-    >>> print(f'Discrepancy of eLHS without optimization: {geometric_discrepancy(lhs_set_expanded):.4f}\n')
+    >>> print(f'Discrepancy of eLHS without optimization: {geometric_discrepancy(lhs_set_expanded):.4f}')
     >>> print(f'Discrepancy of eLHS with optimization: {geometric_discrepancy(lhs_set_expanded_opt):.4f}')
 
-    Discrepancy of eLHS without optimization: 0.0393
-    
-    Discrepancy of eLHS with optimization: 0.0139
+    Discrepancy of eLHS without optimization: 0.0711
+    Discrepancy of eLHS with optimization: 0.0223
 
 

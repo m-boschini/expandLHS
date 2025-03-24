@@ -9,6 +9,7 @@
   <title>Examples &mdash; expandLHS 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -16,6 +17,7 @@
       <script src="_static/documentation_options.js?v=8d563738"></script>
       <script src="_static/doctools.js?v=9a2dae69"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -163,24 +165,24 @@ Latin Hypercube has always a degree of 1.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;degree-of-LHS = </span><span class="si">{</span><span class="n">degree</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>degree-of-LHS = 0.960</p>
+<p>degree-of-LHS = 0.940</p>
 <p>Using the method <code class="docutils literal notranslate"><span class="pre">ExpandLHS.optimal_expansion</span></code> it is possible to
 compute the degree-of-LHS for different expansion sizes in a given
 interval.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expansions</span> <span class="o">=</span> <span class="n">eLHS</span><span class="o">.</span><span class="n">optimal_expansion</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;List of expansions sorted by the corresponding degree:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;List of expansions sorted by the corresponding degree:&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">expansion</span> <span class="ow">in</span> <span class="n">expansions</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">expansion</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">expansion</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">expansion</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">expansion</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>List of expansions sorted by the corresponding degree:</p>
-<p>(0, 1.0000)</p>
-<p>(9, 0.9655)</p>
-<p>(5, 0.9600)</p>
-<p>(8, 0.9464)</p>
-<p>(7, 0.9444)</p>
-<p>(4, 0.9375)</p>
-<p>(6, 0.9231)</p>
+<p>List of expansions sorted by the corresponding degree:
+(0, 1.0000)
+(8, 0.9821)
+(6, 0.9615)
+(9, 0.9483)
+(5, 0.9400)
+(7, 0.9259)
+(4, 0.9167)</p>
 </section>
 <section id="optimized-expansion">
 <h2>Optimized expansion<a class="headerlink" href="#optimized-expansion" title="Link to this heading"></a></h2>
@@ -198,12 +200,12 @@ metric corresponds to a better space-filling of the hypercube.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_sampler_opt</span> <span class="o">=</span> <span class="n">LatinHypercube</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">optimization</span><span class="o">=</span><span class="s1">&#39;random-cd&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_opt</span> <span class="o">=</span> <span class="n">lhs_sampler_opt</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of LHS without optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of LHS without optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of LHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of LHS without optimization: 0.0060</p>
-<p>Discrepancy of LHS with optimization: 0.0023</p>
+<p>Discrepancy of LHS without optimization: 0.0065
+Discrepancy of LHS with optimization: 0.0022</p>
 <div class="line-block">
 <div class="line">When using <code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__</span></code> is it possible to ask for an
 optimized expansion with the keyword <code class="docutils literal notranslate"><span class="pre">optimize=</span></code>, where the
@@ -214,20 +216,20 @@ available metrics are:   - discrepancy
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded_opt</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="s1">&#39;discrepancy&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS without optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS without optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.0016</p>
-<p>Discrepancy of eLHS with optimization: 0.0002</p>
+<p>Discrepancy of eLHS without optimization: 0.0024
+Discrepancy of eLHS with optimization: 0.0002</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded_opt</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="s1">&#39;geometric_discrepancy&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS without optimization: </span><span class="si">{</span><span class="n">geometric_discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS without optimization: </span><span class="si">{</span><span class="n">geometric_discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">geometric_discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.0393</p>
-<p>Discrepancy of eLHS with optimization: 0.0139</p>
+<p>Discrepancy of eLHS without optimization: 0.0711
+Discrepancy of eLHS with optimization: 0.0223</p>
 </section>
 </section>
 

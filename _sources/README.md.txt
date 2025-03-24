@@ -18,4 +18,10 @@ The code is distributed under version control at
 The documentation is available at
  - [m-boschini.github.io/expandLHS](https://m-boschini.github.io/expandLHS)
 
+To install the code simply use
+
+    pip install expandLHS
+
+An example notebook can be found in the [documentation](https://m-boschini.github.io/expandLHS) together with a detailed description of the functions.
+
 `expandLHS` is released under the MIT License. 
