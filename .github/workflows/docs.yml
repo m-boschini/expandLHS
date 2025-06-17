@@ -31,7 +31,7 @@ jobs:
         path: examples/example.rst
 
 
-    builddocs:
+  builddocs:
     needs: jupyter
     runs-on: ubuntu-latest
     steps:
@@ -70,4 +70,3 @@ jobs:
     - uses: geekyeggo/delete-artifact@v4
       with:
         name: example.rst
-
