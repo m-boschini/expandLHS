@@ -1,10 +1,11 @@
+from __future__ import annotations # for compatibility
+
 import numpy as np
 from scipy.stats.qmc import LatinHypercube as LHSampler, discrepancy, geometric_discrepancy
 from numba import jit, types as ntypes
 from typing import Tuple, Literal
 from warnings import warn
-# for compatibility 
-from __future__ import annotations
+ 
 
 
 @jit(nopython=True)
