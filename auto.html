@@ -48,7 +48,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="README.html">expandLHS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Package documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Package documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#expandLHS.ExpandLHS"><code class="docutils literal notranslate"><span class="pre">ExpandLHS</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.__call__"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.degree"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.degree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expandLHS.ExpandLHS.optimal_expansion"><code class="docutils literal notranslate"><span class="pre">ExpandLHS.optimal_expansion()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -74,8 +82,166 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="package-documentation">
-<h1>Package documentation<a class="headerlink" href="#package-documentation" title="Link to this heading"></a></h1>
+  <section id="module-expandLHS">
+<span id="package-documentation"></span><h1>Package documentation<a class="headerlink" href="#module-expandLHS" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">expandLHS.</span></span><span class="sig-name descname"><span class="pre">ExpandLHS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS" title="Link to this definition"></a></dt>
+<dd><p>Class of the Latin Hypercube Sampling (LHS) Expansion algorithm.</p>
+<p>The Latin Hypercube Sampling is a stratified sampling method that
+allows to generate N near-random samples in the P-dimensional hypercube
+[0, 1)^P. It is a space-filling sampling strategy that ensures the
+one-dimensional projection property, i.e. the samples are uniformly
+distributed in each one-dimension projection.</p>
+<p>Given an initial LHS set of size N defined in the P-dimensional hypercube
+[0, 1)^P, this class expands the set adding new M samples.
+This procedure requires a new partition of the interval [0,1) in each
+dimension P that may result in loosing the LHS projection property. The case
+M = k * N, where k is a natural number, always preserves the LHS projection
+property.
+This code allows to compute a new metric D, with 0 &lt; D &lt;= 1, corresponding
+to the degree-of-LHS of a samples set, where D = 1 corresponds to a perfect
+LHS. This allows to quantify the impact of an epansion on the initial set.
+It is worth noticing that the degree does not depend on the sampling
+strategy, but only on the initial set and the new partition of the intervals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Cardinality of the sample set.</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">int</span></dt><dd><p>Number of dimensions.</p>
+</dd>
+<dt><strong>samples</strong><span class="classifier">numpy.ndarray with shape (N, P)</span></dt><dd><p>Initial Latin Hypercube sample set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_regridding</span></code>([M, samples])</p></td>
+<td><p>Regrid the Latin Hypercube samples by adding M new intervals in each dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_count_samples</span></code>([M, samples])</p></td>
+<td><p>Count the number of samples in each of the (N + M) x P intervals.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_LHSinLHS_sampling</span></code>(M, voids)</p></td>
+<td><p>Generate new samples within the voids of the current sample set preserving as much as possible the properties of a Latin Hypercube.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_LHSinLHS_optimized</span></code>(M, voids, criterion, ...)</p></td>
+<td><p>Generate new samples within the voids of the current sample set preserving as much as possible the properties of a Latin Hypercube.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.degree" title="expandLHS.ExpandLHS.degree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">degree</span></code></a>([M])</p></td>
+<td><p>Compute the degree-of-LHS of the current sample set when expanded to size N + M, assuming M new samples will be generated.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.optimal_expansion" title="expandLHS.ExpandLHS.optimal_expansion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimal_expansion</span></code></a>(radius[, verbose])</p></td>
+<td><p>Find the optimal expansion size ---the expansion that has the higher degree-of-LHS in a given range.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#expandLHS.ExpandLHS.__call__" title="expandLHS.ExpandLHS.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>([M, seed, optimize, trials, tol])</p></td>
+<td><p>Build the Latin Hypercube expansion of size M.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.__call__" title="Link to this definition"></a></dt>
+<dd><p>Build the Latin Hypercube expansion of size M.</p>
+<p>The optional argument ‘optimize’ allows to find an optimal set of new
+samples with lower centered discrepancy (space filling metric)
+or higher geometric discrepancy (pairwise minimum distance).
+Both these metrics are implemented in Scipy.stats.qmc.
+The code produce a number of possible expansion equal to ‘trials’.
+It is not garanteed that the final sample will be the absolute minimum
+of the discrepancy or the absolute maximum of the geometric
+discrepancy for the given sample. The optimization through geometric
+discrepancy could fail if the minimum pairwise distance is set by the
+initial set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>M</strong><span class="classifier">int (optional)</span></dt><dd><p>Number of new samples to generate. Defaults to 1.</p>
+</dd>
+<dt><strong>seed</strong><span class="classifier">int | None (optional)</span></dt><dd><p>Seed for the random number generator. Defaults to None.</p>
+</dd>
+<dt><strong>optimize</strong><span class="classifier">str | None (optional)</span></dt><dd><p>Optimization criterion, the available options are centered
+discrepancy and geometric discrepancy</p>
+</dd>
+<dt><strong>trials</strong><span class="classifier">int (optional)</span></dt><dd><p>number of trials for the optimal expansion set. Defoult to 1000.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float (optional)</span></dt><dd><p>Tolerance for the optimization. Defaults to 1e-4.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>expansion</strong><span class="classifier">numpy.ndarray(N + M, P)</span></dt><dd><p>Expanded Latin Hypercube sample set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.degree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.degree" title="Link to this definition"></a></dt>
+<dd><p>Compute the degree-of-LHS of the current sample set
+when expanded to size N + M, assuming M new samples will be generated.
+If M = 0, compute the degree of the initial set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>M</strong><span class="classifier">int</span></dt><dd><p>Number of new intervals to add. Defaults to 1.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>lhs_degree</strong><span class="classifier">float</span></dt><dd><p>Degree of the Latin Hypercube Sampling, with 0 &lt; D &lt;= 1.
+A perfect Latin Hypercube has degree D = 1.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="expandLHS.ExpandLHS.optimal_expansion">
+<span class="sig-name descname"><span class="pre">optimal_expansion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/expandLHS.html#ExpandLHS.optimal_expansion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#expandLHS.ExpandLHS.optimal_expansion" title="Link to this definition"></a></dt>
+<dd><p>Find the optimal expansion size —the expansion that has
+the higher degree-of-LHS in a given range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>radius</strong><span class="classifier">int | (int, int)</span></dt><dd><p>Range of values to consider for the expansion.
+If a single value is provided, it is interpreted as
+[1, upper bound]
+If a tuple is provided, it is interpreted as
+[lower bound, upper bound].
+Both the lower bound and the upper bound are included.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool</span></dt><dd><p>If False return the expansion size with the highest degree,
+if True returns all the expansion sizes within radius.
+Defaults to False.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>expansions</strong><span class="classifier">list of tuples(int, float) or float</span></dt><dd><p>List of expansion sizes and their corresponding degree-of-LHS.
+If verbose is True, returns a list of tuples with the
+expansion size and the corresponding degree-of-LHS.
+The tuple with expansion size equal 0 is the degree of the
+current set (=1 for a perfect Latin Hypercube).
+If verbose is False, returns the expansion size with the
+highest degree-of-LHS.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
