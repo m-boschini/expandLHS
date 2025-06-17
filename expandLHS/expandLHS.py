@@ -146,24 +146,24 @@ class ExpandLHS:
     
     Methods
     -------
-    regridding
+    _regridding
         Compute the new partition of the interval [0,1).
         
-    count_samples 
+    _count_samples 
         Compute the number of samples in each interval and dimension.
+        
+    _LHSinLHS_sampling 
+        Sample M additional samples filling M empty intervals created by 
+        the new partition in each dimension P.
+        
+    _LHSinLHS_optimized
+        Sample M additional samples and optimize the their spatial distribution.
         
     degree 
         Compute the degree-of-LHS of a samples set.
         
     optimal_expansion 
         Find the optimal expansion size M maximizing the final degree.
-        
-    LHSinLHS_sampling 
-        Sample M additional samples filling M empty intervals created by 
-        the new partition in each dimension P.
-        
-    LHSinLHS_optimized
-        Sample M additional samples and optimize the their spatial distribution. 
         
     __call__ 
         Expand a given sample set adding additional M samples.
@@ -180,34 +180,36 @@ class ExpandLHS:
         """
         Initialize the LHSExpansion class.
 
-        Args:
-            samples : numpy.ndarray (optional)
+        Parameters
+        ----------
+            samples : numpy.ndarray | None (optional)
                 A 2D array of shape (N, P) representing the initial
                 Latin Hypercube sample set with N samples in P dimensions. 
-                If given, N and P are inferred from the shape of the array.
+                If None, the sample set will be generated using the
+                scipy.stats.qmc.LatinHypercube sampler with the given N and P.  
                 
-            N : int (optional)
-                Number of samples in the initial set. If given, P must also be
-                given. The initial set is sampled using the implementation 
-                scipy.stats.qmc.LatinHypercube.
-                If samples is provided, N is inferred from the shape of the array.
+            N : int | None (optional)
+                Number of samples in the initial set. If None, it must be
+                provided through the samples parameter. The initial set is
+                sampled using the implementation scipy.stats.qmc.LatinHypercube.
                 
-            P : int (optional)
-                Number of dimensions in the initial set. If given, N must also
-                be given. The initial set is sampled using the implementation 
-                scipy.stats.qmc.LatinHypercube.
-                If samples is provided, P is inferred from the shape of the array.
+            P : int | None (optional)
+                Number of dimensions in the initial set. If None, it must be
+                provided through the samples parameter. The initial set is
+                sampled using the implementation scipy.stats.qmc.LatinHypercube.    
                 
-            kwargs :
+        Keyword Args
+        --------------
+            **kwargs :
                 Additional keyword arguments to be passed to the Scipy
-                Latin Hypercube sampler if N and P are provided.
+                Latin Hypercube sampler if N and P are provided.    
                 
         Raises:
             ValueError: If samples is None and N or P are not provided.
-            ValueError: If samples are not a 2D array with shape (N, P).
+            ValueError: If samples is not a 2D array with shape (N, P).
             Warning: If samples is not None and N or P are provided.
             Warning: If the shape of samples does not match the given N and P.
-                
+            
         """
         
         if samples is None:
@@ -247,15 +249,17 @@ class ExpandLHS:
         Regrid the Latin Hypercube samples by adding M new intervals in 
         each dimension.
 
-        Args:
-            M : int (optional) 
+        Parameters
+        ----------
+            M : int (optional)
                 Number of new intervals to add. Defaults to 1.
-            
-            samples : numpy.ndarray (optional)
+                
+            samples : numpy.ndarray | None (optional)
                 If given, the regridding will be performed on this set and not
                 on the default one.
-
-        Returns:
+                
+        Returns
+        -------
             voids : numpy.ndarray(N + M, P)
                 A boolean array indicating the empty intervals. 
                 In each dimension the number of voids is >= M, as adding M 
@@ -286,19 +290,22 @@ class ExpandLHS:
         """
         Count the number of samples in each of the (N + M) x P intervals.
 
-        Args:
+        Parameters
+        ----------
+        
             M : int (optional)
                 Number of new intervals to add. Defaults to 1.
                 
-            samples : numpy.ndarray (optional)
+            samples : numpy.ndarray | None (optional)
                 If given, the counting of samples will be performed on this set 
-                and not on the default one.
-
-        Returns:
-            population : numpy.ndarray(N + M, P) 
+                and not on the default one. 
+        
+        Returns
+        -------
+            population : numpy.ndarray(N + M, P)
                 An array indicating the number of samples in each interval.
                 Adding M intervals may cause two samples to fall in the same 
-                bin, thus leaving a permanent void.
+                bin, thus leaving a permanent void.                
         """
         
         if samples is None:
@@ -324,14 +331,16 @@ class ExpandLHS:
         Generate new samples within the voids of the current sample set 
         preserving as much as possible the properties of a Latin Hypercube.
 
-        Args:
+        Parameters
+        ----------  
             M : int 
                 Number of new samples to generate.
                 
             voids : numpy.ndarray(N + M, P) 
                 Boolean array indicating the empty intervals.
 
-        Returns:
+        Returns
+        -------
             new samples : numpy.ndarray(M, P)
                 New samples generated within the voids.
         """
@@ -356,7 +365,8 @@ class ExpandLHS:
         lowest centered discrepancy or the higher geometric discrepancy within
         a number of samplings equal to trials.
 
-        Args:
+        Parameters
+        ----------
             M : int
                 Number of new samples to generate.
                 
@@ -373,7 +383,8 @@ class ExpandLHS:
             tol : float
                 Tolerance for the optimization. Defaults to 1e-4.
 
-        Returns:
+        Returns
+        -------
             opt_samples : numpy.ndarray(M, P) 
                 New samples generated within the voids and optimized with the 
                 given criterion.
@@ -417,13 +428,17 @@ class ExpandLHS:
         when expanded to size N + M, assuming M new samples will be generated.
         If M = 0, compute the degree of the initial set.
 
-        Args:
-            M : int (optional)
+        Parameters
+        ----------
+
+            M : int
                 Number of new intervals to add. Defaults to 1.
 
-        Returns:
-            degree : float
-                Degree (D) of the Latin Hypercube Sampling, with 0 < D <= 1.
+        Returns
+        -------
+            lhs_degree : float
+                Degree of the Latin Hypercube Sampling, with 0 < D <= 1.
+                A perfect Latin Hypercube has degree D = 1.
         """
         
         lhs_degree = _degree_jitted(self.N, self.P, self.samples, M)
@@ -440,7 +455,8 @@ class ExpandLHS:
         Find the optimal expansion size ---the expansion that has 
         the higher degree-of-LHS in a given range.
 
-        Args:
+        Parameters
+        ----------
             radius : int | (int, int)
                 Range of values to consider for the expansion. 
                 If a single value is provided, it is interpreted as 
@@ -454,12 +470,16 @@ class ExpandLHS:
                 if True returns all the expansion sizes within radius.
                 Defaults to False.
                 
-        Returns:
-            expansions size, expansion degree : [(int, float),...]
-                List of tuples of kind (expansion size, expansion degree),
-                ordered by decreasing expansion degree. 
+        Returns
+        -------
+            expansions : list of tuples(int, float) or float
+                List of expansion sizes and their corresponding degree-of-LHS.
+                If verbose is True, returns a list of tuples with the
+                expansion size and the corresponding degree-of-LHS.
                 The tuple with expansion size equal 0 is the degree of the 
                 current set (=1 for a perfect Latin Hypercube).
+                If verbose is False, returns the expansion size with the
+                highest degree-of-LHS.
         """
         
         if not isinstance(radius, tuple):
@@ -499,7 +519,8 @@ class ExpandLHS:
         initial set.
         
 
-        Args:
+        Parameters
+        ----------
             M : int (optional)
                 Number of new samples to generate. Defaults to 1.
             
@@ -516,7 +537,8 @@ class ExpandLHS:
             tol : float (optional)
                 Tolerance for the optimization. Defaults to 1e-4.
 
-        Returns:
+        Returns
+        -------
             expansion : numpy.ndarray(N + M, P)
                 Expanded Latin Hypercube sample set.
         """
