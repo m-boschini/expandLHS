@@ -95,7 +95,7 @@ Latin Hypercube has always a degree of 1.
     >>> degree = eLHS.degree(M)
     >>> print(f'LHS degree = {degree:.3f}')
 
-    LHS degree = 0.900
+    LHS degree = 0.960
 
 Using the method ``ExpandLHS.optimal_expansion`` it is possible to
 compute the degree-of-LHS for different expansion sizes in a given
@@ -111,12 +111,12 @@ interval.
     List of expansions sorted by the corresponding degree:
     
     (0, 1.0000)
-    (9, 0.9828)
-    (8, 0.9286)
-    (7, 0.9259)
+    (9, 0.9655)
+    (8, 0.9643)
+    (5, 0.9600)
+    (6, 0.9423)
     (4, 0.9167)
-    (6, 0.9038)
-    (5, 0.9000)
+    (7, 0.9074)
 
 Optimized expansion
 ~~~~~~~~~~~~~~~~~~~
@@ -143,9 +143,9 @@ metric corresponds to a better space-filling of the hypercube.
     >>> Discrepancy of LHS with optimization: {discrepancy(lhs_set_opt):.4f}''')
 
     
-    Discrepancy of LHS without optimization: 0.0125 
+    Discrepancy of LHS without optimization: 0.0144 
     
-    Discrepancy of LHS with optimization: 0.0058
+    Discrepancy of LHS with optimization: 0.0059
 
 | When using ``ExpandLHS.__call__`` is it possible to ask for an
   optimized expansion with the keyword ``optimize=``, where the
@@ -165,9 +165,9 @@ metric corresponds to a better space-filling of the hypercube.
     >>> Discrepancy of eLHS with optimization: {discrepancy(lhs_set_expanded_opt):.4f}''')
 
     
-    Discrepancy of eLHS without optimization: 0.0057 
+    Discrepancy of eLHS without optimization: 0.0060 
     
-    Discrepancy of eLHS with optimization: 0.0049
+    Discrepancy of eLHS with optimization: 0.0052
 
 .. nbplot::
 
@@ -180,8 +180,8 @@ metric corresponds to a better space-filling of the hypercube.
     >>> Discrepancy of eLHS with optimization: {geometric_discrepancy(lhs_set_expanded_opt):.4f}''')
 
     
-    Discrepancy of eLHS without optimization: 0.2455 
+    Discrepancy of eLHS without optimization: 0.2089 
     
-    Discrepancy of eLHS with optimization: 0.3194
+    Discrepancy of eLHS with optimization: 0.3015
 
 
