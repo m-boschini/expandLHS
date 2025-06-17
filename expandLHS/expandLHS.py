@@ -3,6 +3,8 @@ from scipy.stats.qmc import LatinHypercube as LHSampler, discrepancy, geometric_
 from numba import jit, types as ntypes
 from typing import Tuple, Literal
 from warnings import warn
+# for compatibility 
+from __future__ import annotations
 
 
 @jit(nopython=True)
