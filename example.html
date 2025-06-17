@@ -22,7 +22,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Package documentation" href="auto.html" />
+    <link rel="next" title="Package-level documentation" href="auto.html" />
     <link rel="prev" title="expandLHS" href="README.html" /> 
 </head>
 
@@ -54,7 +54,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#optimized-expansion">Optimized expansion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="auto.html">Package documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto.html">Package-level documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto.html#module-documentation">Module documentation</a></li>
 </ul>
 
         </div>
@@ -153,7 +154,7 @@ Latin Hypercube has always a degree of 1.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;LHS degree = </span><span class="si">{</span><span class="n">degree</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>LHS degree = 0.920</p>
+<p>LHS degree = 0.840</p>
 <p>Using the method <code class="docutils literal notranslate"><span class="pre">ExpandLHS.optimal_expansion</span></code> it is possible to
 compute the degree-of-LHS for different expansion sizes in a given
 interval.</p>
@@ -165,12 +166,12 @@ interval.</p>
 </div>
 <p>List of expansions sorted by the corresponding degree:</p>
 <p>(0, 1.0000)
-(4, 0.9792)
-(9, 0.9655)
-(7, 0.9444)
-(8, 0.9286)
 (6, 0.9231)
-(5, 0.9200)</p>
+(7, 0.9074)
+(9, 0.8966)
+(8, 0.8750)
+(5, 0.8400)
+(4, 0.8333)</p>
 </section>
 <section id="optimized-expansion">
 <h2>Optimized expansion<a class="headerlink" href="#optimized-expansion" title="Link to this heading"></a></h2>
@@ -193,8 +194,8 @@ metric corresponds to a better space-filling of the hypercube.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of LHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of LHS without optimization: 0.0131</p>
-<p>Discrepancy of LHS with optimization: 0.0062</p>
+<p>Discrepancy of LHS without optimization: 0.0140</p>
+<p>Discrepancy of LHS with optimization: 0.0063</p>
 <div class="line-block">
 <div class="line">When using <code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__</span></code> is it possible to ask for an
 optimized expansion with the keyword <code class="docutils literal notranslate"><span class="pre">optimize=</span></code>, where the
@@ -212,8 +213,8 @@ available metrics are:   - discrepancy
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.0062</p>
-<p>Discrepancy of eLHS with optimization: 0.0054</p>
+<p>Discrepancy of eLHS without optimization: 0.0059</p>
+<p>Discrepancy of eLHS with optimization: 0.0055</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eLHS</span> <span class="o">=</span> <span class="n">ExpandLHS</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded_opt</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="s1">&#39;geometric_discrepancy&#39;</span><span class="p">)</span>
@@ -223,8 +224,8 @@ available metrics are:   - discrepancy
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">geometric_discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.1473</p>
-<p>Discrepancy of eLHS with optimization: 0.3055</p>
+<p>Discrepancy of eLHS without optimization: 0.1765</p>
+<p>Discrepancy of eLHS with optimization: 0.3114</p>
 </section>
 </section>
 
@@ -233,7 +234,7 @@ available metrics are:   - discrepancy
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="README.html" class="btn btn-neutral float-left" title="expandLHS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="auto.html" class="btn btn-neutral float-right" title="Package documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="auto.html" class="btn btn-neutral float-right" title="Package-level documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
