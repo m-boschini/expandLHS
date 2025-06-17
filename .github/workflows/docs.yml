@@ -31,11 +31,19 @@ jobs:
         path: examples/example.rst
 
 
-  builddocs:
+    builddocs:
     needs: jupyter
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - name: Install Python and dependencies
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Install package and doc requirements
+      run: |
+        pip install -r docs/requirements.txt
+        pip install .
     - uses: actions/download-artifact@v4
       with:
         name: example.rst
@@ -62,3 +70,4 @@ jobs:
     - uses: geekyeggo/delete-artifact@v4
       with:
         name: example.rst
+
