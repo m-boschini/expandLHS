@@ -65,6 +65,8 @@ myst_enable_extensions = [
 
 napoleon_custom_sections = ("Call","params_style")
 
+autodoc_typehints = "none"
+
 autosummary_generate = True
 
 autodoc_docstring_signature = True
