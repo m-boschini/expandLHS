@@ -24,3 +24,11 @@ To install the code simply use
 An example notebook can be found in the [documentation](https://m-boschini.github.io/expandLHS) together with a detailed description of the functions.
 
 `expandLHS` is released under the MIT License. 
+
+
+#### Change log
+
+- *v1.1.0* New feature: now it is possible to initialise a Latin Hypercube when the class is created
+- *v1.0.0* First public release.
+
+(Third-level versions not explicitly indicated refer to patches for minor typos/bug fixes)

@@ -4,7 +4,7 @@ Information about the current version of the Latin Hypercube extension package.
 
 __title__ = 'expandLHS'
 __description__ = 'Expansion of a Latin Hypercube sample set'
-__version__ = '1.0.0'
+__version__ = '1.1.0'
 __author__ = 'Matteo Boschini, Davide Gerosa'
 __author_email__ = 'm.boschini1@campus.unimib.it'
 __license__ = 'MIT'

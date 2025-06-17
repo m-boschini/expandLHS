@@ -1,11 +1,12 @@
 import numpy as np
-from scipy.stats.qmc import discrepancy, geometric_discrepancy
+from scipy.stats.qmc import LatinHypercube as LHSampler, discrepancy, geometric_discrepancy
 from numba import jit, types as ntypes
-from typing import Optional, Union, Tuple, Literal
+from typing import Tuple, Literal
+from warnings import warn
 
 
 @jit(nopython=True)
-def _regridding(
+def _regridding_jitted(
     N : ntypes.u8,
     P : ntypes.u8,
     samples : np.ndarray,
@@ -25,7 +26,7 @@ def _regridding(
 
 
 @jit(nopython=True)
-def _count_samples(
+def _count_samples_jitted(
     N : ntypes.u8,
     P : ntypes.u8,
     samples : np.ndarray,
@@ -46,7 +47,7 @@ def _count_samples(
 
 
 @jit(nopython=True)
-def _degree(
+def _degree_jitted(
     N : ntypes.u8,
     P : ntypes.u8,
     samples : np.ndarray,
@@ -61,7 +62,7 @@ def _degree(
 
 
 @jit(nopython=True)
-def _optimal_expansion(
+def _optimal_expansion_jitted(
     N : ntypes.u8,
     P : ntypes.u8,
     samples : np.ndarray,
@@ -83,7 +84,7 @@ def _optimal_expansion(
 
 
 @jit(nopython=True)
-def _LHSinLHS_sampling(
+def _LHSinLHS_sampling_jitted(
     N : ntypes.u8,
     P : ntypes.u8,
     M : ntypes.u8, 
@@ -134,12 +135,12 @@ class ExpandLHS:
     Attributes
     ----------
     N : int
-        Number of samples.
+        Cardinality of the sample set.
         
     P : int
         Number of dimensions.
         
-    samples : array_like (N, P)
+    samples : numpy.ndarray with shape (N, P)
         Initial Latin Hypercube sample set.
    
     
@@ -170,32 +171,77 @@ class ExpandLHS:
     
     def __init__(
         self, 
-        samples : np.ndarray
+        samples : np.ndarray | None = None,
+        *,
+        N : int | None = None,
+        P : int | None = None,
+        **kwargs
         ) -> None:
         """
         Initialize the LHSExpansion class.
 
         Args:
-            samples : array_like (N, P)
+            samples : numpy.ndarray (optional)
+                A 2D array of shape (N, P) representing the initial
                 Latin Hypercube sample set with N samples in P dimensions. 
+                If given, N and P are inferred from the shape of the array.
+                
+            N : int (optional)
+                Number of samples in the initial set. If given, P must also be
+                given. The initial set is sampled using the implementation 
+                scipy.stats.qmc.LatinHypercube.
+                If samples is provided, N is inferred from the shape of the array.
+                
+            P : int (optional)
+                Number of dimensions in the initial set. If given, N must also
+                be given. The initial set is sampled using the implementation 
+                scipy.stats.qmc.LatinHypercube.
+                If samples is provided, P is inferred from the shape of the array.
+                
+            kwargs :
+                Additional keyword arguments to be passed to the Scipy
+                Latin Hypercube sampler if N and P are provided.
+                
+        Raises:
+            ValueError: If samples is None and N or P are not provided.
+            ValueError: If samples are not a 2D array with shape (N, P).
+            Warning: If samples is not None and N or P are provided.
+            Warning: If the shape of samples does not match the given N and P.
                 
         """
         
-        self.N = samples.shape[0]
-        self.P = samples.shape[1]
-        self.samples = samples
+        if samples is None:
+            if N is None or P is None:
+                raise ValueError("Either sample set or both N and P must be provided.")
+            else:
+                self.N = N
+                self.P = P
+                sampler = LHSampler(d=P, **kwargs)
+                samples = sampler.random(N)
+                self.samples = samples
+        else:
+            if len(samples.shape) != 2:
+                raise ValueError("Sample set must be a 2D array with shape (N, P).")
+            if N is not None or P is not None:
+                warn("Sample set is provided, N and P will be inferred from the shape of samples.")
+            if N is not None and samples.shape[0] != N:
+                warn(f"Shape of samples ({samples.shape[0]}) does not match given N ({N}).")
+            if P is not None and samples.shape[1] != P:
+                warn(f"Shape of samples ({samples.shape[1]}) does not match given P ({P}).")
+            
+            self.samples = samples
+            self.N = samples.shape[0]
+            self.P = samples.shape[1]
+        
         
         self.rng = np.random.default_rng()
-            
-            
-        
     
 
-    def regridding(
+    def _regridding(
         self,
         M : int = 1,
         *,
-        samples : Optional[np.ndarray] = None
+        samples : np.ndarray | None = None
         ) -> np.ndarray:
         """
         Regrid the Latin Hypercube samples by adding M new intervals in 
@@ -205,12 +251,12 @@ class ExpandLHS:
             M : int (optional) 
                 Number of new intervals to add. Defaults to 1.
             
-            samples : array_like (optional)
+            samples : numpy.ndarray (optional)
                 If given, the regridding will be performed on this set and not
                 on the default one.
 
         Returns:
-            voids : numpy.ndarray (N + M, P)
+            voids : numpy.ndarray(N + M, P)
                 A boolean array indicating the empty intervals. 
                 In each dimension the number of voids is >= M, as adding M 
                 intervals may cause two samples to fall in the same bin, 
@@ -226,16 +272,16 @@ class ExpandLHS:
             N = samples.shape[0]
             P = samples.shape[1]
         
-        voids = _regridding(N, P, samples, M)
+        voids = _regridding_jitted(N, P, samples, M)
 
         return voids
     
     
-    def count_samples(
+    def _count_samples(
         self,
         M : int = 1,
         *,
-        samples : Optional[np.ndarray] = None
+        samples : np.ndarray | None = None
         ) -> np.ndarray:
         """
         Count the number of samples in each of the (N + M) x P intervals.
@@ -244,12 +290,12 @@ class ExpandLHS:
             M : int (optional)
                 Number of new intervals to add. Defaults to 1.
                 
-            samples : arrray_like (optional)
+            samples : numpy.ndarray (optional)
                 If given, the counting of samples will be performed on this set 
                 and not on the default one.
 
         Returns:
-            population : numpy.ndarray (N + M, P) 
+            population : numpy.ndarray(N + M, P) 
                 An array indicating the number of samples in each interval.
                 Adding M intervals may cause two samples to fall in the same 
                 bin, thus leaving a permanent void.
@@ -264,79 +310,12 @@ class ExpandLHS:
             N = samples.shape[0]
             P = samples.shape[1]
         
-        population = _count_samples(N, P, samples, M)
+        population = _count_samples_jitted(N, P, samples, M)
             
         return population
     
     
-    def degree(
-        self,
-        M : int = 1
-        ) -> float:
-        """
-        Compute the degree-of-LHS of the current sample set when expanded to 
-        size N + M, assuming M new samples will be generated.
-        If M = 0, compute the degree of the initial set.
-
-        Args:
-            M : int (optional)
-                Number of new intervals to add. Defaults to 1.
-
-        Returns:
-            degree : float
-                Degree (D) of the Latin Hypercube Sampling, with 0 < D <= 1.
-        """
-        
-        lhs_degree = _degree(self.N, self.P, self.samples, M)
-        
-        return lhs_degree
-    
-    
-    def optimal_expansion(
-        self,
-        radius : Union[int, Tuple[int, int]],
-        verbose : bool = False
-        ) -> list[int, float]:
-        """
-        Find the optimal expansion size ---the expansion that has 
-        the higher degree-of-LHS in a given range.
-
-        Args:
-            radius : int | (int, int)
-                Range of values to consider for the expansion. 
-                If a single value is provided, it is interpreted as 
-                [1, upper bound] 
-                If a tuple is provided, it is interpreted as 
-                [lower bound, upper bound].
-                Both the lower and the upper bounds are included.
-                
-            verbose : bool
-                If False return the expansion size with the highest degree, 
-                if True returns all the expansion sizes within radius.
-                Defaults to False.
-                
-        Returns:
-            expansions size, expansion degree : [(int, float),...]
-                List of tuples of kind (expansion size, expansion degree),
-                ordered by decreasing expansion degree. 
-                The tuple with expansion size equal 0 is the degree of the 
-                current set (=1 for a perfect Latin Hypercube).
-        """
-        
-        if not isinstance(radius, tuple):
-            radius = (1, radius)
-        
-        expansions = _optimal_expansion(self.N, self.P, self.samples, radius)
-        
-        if verbose:
-            return expansions
-        
-        else:
-            # expansions[0] is always the degree of the initial set
-            return expansions[1]
-    
-    
-    def LHSinLHS_sampling(
+    def _LHSinLHS_sampling(
         self,
         M : int, 
         voids : np.ndarray,
@@ -349,20 +328,20 @@ class ExpandLHS:
             M : int 
                 Number of new samples to generate.
                 
-            voids : array_like (N + M, P) 
+            voids : numpy.ndarray(N + M, P) 
                 Boolean array indicating the empty intervals.
 
         Returns:
-            new samples : numpy.ndarray (M, P)
+            new samples : numpy.ndarray(M, P)
                 New samples generated within the voids.
         """
         
-        new_samples = _LHSinLHS_sampling(self.N, self.P, M, voids, self.rng)
+        new_samples = _LHSinLHS_sampling_jitted(self.N, self.P, M, voids, self.rng)
         
         return new_samples
     
     
-    def LHSinLHS_optimized(
+    def _LHSinLHS_optimized(
         self,
         M : int, 
         voids : np.ndarray,
@@ -381,20 +360,21 @@ class ExpandLHS:
             M : int
                 Number of new samples to generate.
                 
-            voids : array_like (N + M, P) 
+            voids : numpy.ndarray(N + M, P) 
                 Boolean array indicating the empty intervals.
                 
             criterion : str 
-                Optimization strategy.
+                Optimization strategy. Available methods are 
+                centered discrepancy and geometric discrepancy.
                 
             trials : int 
-                Number of expansions to sample. 
+                Number of expansions to sample. Defaults to 1000.
                 
             tol : float
-                Tolerance for the optimization.
+                Tolerance for the optimization. Defaults to 1e-4.
 
         Returns:
-            opt_samples : numpy.ndarray (M, P) 
+            opt_samples : numpy.ndarray(M, P) 
                 New samples generated within the voids and optimized with the 
                 given criterion.
         """
@@ -404,12 +384,12 @@ class ExpandLHS:
             'geometric_discrepancy' : geometric_discrepancy
             }
         
-        opt_samples = _LHSinLHS_sampling(self.N, self.P, M, voids, self.rng)
+        opt_samples = _LHSinLHS_sampling_jitted(self.N, self.P, M, voids, self.rng)
         opt_criterion = opt_mode[criterion](
                 np.concatenate([self.samples, opt_samples], axis=0))
         
         for _ in range(trials):
-            tmp_samples = _LHSinLHS_sampling(self.N, self.P, M, voids, self.rng)
+            tmp_samples = _LHSinLHS_sampling_jitted(self.N, self.P, M, voids, self.rng)
             tmp_criterion = opt_mode[criterion](
                 np.concatenate([self.samples, tmp_samples], axis=0))
             
@@ -427,13 +407,80 @@ class ExpandLHS:
         
         return opt_samples
 
+
+    def degree(
+        self,
+        M : int = 1
+        ) -> float:
+        """
+        Compute the degree-of-LHS of the current sample set 
+        when expanded to size N + M, assuming M new samples will be generated.
+        If M = 0, compute the degree of the initial set.
+
+        Args:
+            M : int (optional)
+                Number of new intervals to add. Defaults to 1.
+
+        Returns:
+            degree : float
+                Degree (D) of the Latin Hypercube Sampling, with 0 < D <= 1.
+        """
+        
+        lhs_degree = _degree_jitted(self.N, self.P, self.samples, M)
+        
+        return lhs_degree
+    
+    
+    def optimal_expansion(
+        self,
+        radius : int | tuple[int, int],
+        verbose : bool = False
+        ) -> list[int, float]:
+        """
+        Find the optimal expansion size ---the expansion that has 
+        the higher degree-of-LHS in a given range.
+
+        Args:
+            radius : int | (int, int)
+                Range of values to consider for the expansion. 
+                If a single value is provided, it is interpreted as 
+                [1, upper bound] 
+                If a tuple is provided, it is interpreted as 
+                [lower bound, upper bound].
+                Both the lower bound and the upper bound are included.
+                
+            verbose : bool
+                If False return the expansion size with the highest degree, 
+                if True returns all the expansion sizes within radius.
+                Defaults to False.
+                
+        Returns:
+            expansions size, expansion degree : [(int, float),...]
+                List of tuples of kind (expansion size, expansion degree),
+                ordered by decreasing expansion degree. 
+                The tuple with expansion size equal 0 is the degree of the 
+                current set (=1 for a perfect Latin Hypercube).
+        """
+        
+        if not isinstance(radius, tuple):
+            radius = (1, radius)
+        
+        expansions = _optimal_expansion_jitted(self.N, self.P, self.samples, radius)
+        
+        if verbose:
+            return expansions
+        
+        else:
+            # expansions[0] is always the degree of the initial set
+            return expansions[1]
+    
             
     def __call__(
         self, 
         M : int = 1,
         *,
-        seed : Optional[int] = None,
-        optimize : Optional[Literal['discrepancy', 'geometric_discrepancy']] = None,
+        seed : int | None = None,
+        optimize : Literal['discrepancy', 'geometric_discrepancy'] | None = None,
         trials : int = 1000,
         tol : float = 1e-4
         ) -> np.ndarray:
@@ -444,9 +491,7 @@ class ExpandLHS:
         samples with lower centered discrepancy (space filling metric) 
         or higher geometric discrepancy (pairwise minimum distance).
         Both these metrics are implemented in Scipy.stats.qmc.
-        The code generates a number of possible expansion equal to 'trials' and 
-        returns the best set with respect to the choosen metric within a certain 
-        absolute tolerance defined by 'tol'. 
+        The code produce a number of possible expansion equal to 'trials'. 
         It is not garanteed that the final sample will be the absolute minimum 
         of the discrepancy or the absolute maximum of the geometric 
         discrepancy for the given sample. The optimization through geometric
@@ -462,17 +507,17 @@ class ExpandLHS:
                 Seed for the random number generator. Defaults to None.
                 
             optimize : str | None (optional)
-                Optimization criterion, the available options are 'discrepancy'
-                and 'geometric_discrepancy'. Defaults to None.
+                Optimization criterion, the available options are centered
+                discrepancy and geometric discrepancy
                 
             trials : int (optional)
-                Number of trials for the optimal expansion set. Defaults to 1000.
+                number of trials for the optimal expansion set. Defoult to 1000.
                 
             tol : float (optional)
                 Tolerance for the optimization. Defaults to 1e-4.
 
         Returns:
-            expansion : numpy.ndarray (N + M, P)
+            expansion : numpy.ndarray(N + M, P)
                 Expanded Latin Hypercube sample set.
         """
         
@@ -482,11 +527,11 @@ class ExpandLHS:
         if seed is not None:
             self.rng = np.random.default_rng(seed)
             
-        voids = self.regridding(M)
+        voids = self._regridding(M)
         
         if optimize is None:
-            new_samples = self.LHSinLHS_sampling(M, voids)
+            new_samples = self._LHSinLHS_sampling(M, voids)
         else:
-            new_samples = self.LHSinLHS_optimized(M, voids, optimize, trials, tol)
+            new_samples = self._LHSinLHS_optimized(M, voids, optimize, trials, tol)
                     
         return np.concatenate([self.samples, new_samples], axis=0)
