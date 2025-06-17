@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15076931.svg)](https://doi.org/10.5281/zenodo.15076931)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15685762.svg)](https://doi.org/10.5281/zenodo.15685762)
 
 ## expandLHS
 

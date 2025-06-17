@@ -111,12 +111,12 @@ interval.
     List of expansions sorted by the corresponding degree:
     
     (0, 1.0000)
-    (8, 0.9643)
-    (9, 0.9483)
-    (6, 0.9231)
-    (4, 0.9167)
+    (9, 0.9310)
+    (8, 0.9107)
     (7, 0.9074)
     (5, 0.9000)
+    (6, 0.8846)
+    (4, 0.8542)
 
 Optimized expansion
 ~~~~~~~~~~~~~~~~~~~
@@ -143,9 +143,9 @@ metric corresponds to a better space-filling of the hypercube.
     >>> Discrepancy of LHS with optimization: {discrepancy(lhs_set_opt):.4f}''')
 
     
-    Discrepancy of LHS without optimization: 0.0151 
+    Discrepancy of LHS without optimization: 0.0145 
     
-    Discrepancy of LHS with optimization: 0.0065
+    Discrepancy of LHS with optimization: 0.0061
 
 | When using ``ExpandLHS.__call__`` is it possible to ask for an
   optimized expansion with the keyword ``optimize=``, where the
@@ -167,7 +167,7 @@ metric corresponds to a better space-filling of the hypercube.
     
     Discrepancy of eLHS without optimization: 0.0062 
     
-    Discrepancy of eLHS with optimization: 0.0061
+    Discrepancy of eLHS with optimization: 0.0058
 
 .. nbplot::
 
@@ -180,8 +180,8 @@ metric corresponds to a better space-filling of the hypercube.
     >>> Discrepancy of eLHS with optimization: {geometric_discrepancy(lhs_set_expanded_opt):.4f}''')
 
     
-    Discrepancy of eLHS without optimization: 0.1398 
+    Discrepancy of eLHS without optimization: 0.1919 
     
-    Discrepancy of eLHS with optimization: 0.2936
+    Discrepancy of eLHS with optimization: 0.3170
 
 
