@@ -57,7 +57,7 @@ def _degree_jitted(
     Numba JITed code for ExpandLHS.degree().
     """
     
-    voids = _regridding(N, P, samples, M)
+    voids = _regridding_jitted(N, P, samples, M)
     return 1 - (np.sum(voids) - M * P) / ((N + M) * P)
 
 
@@ -72,11 +72,11 @@ def _optimal_expansion_jitted(
     Numba JITed code for ExpandLHS.optimal_expansion().
     """
         
-    scaling_up = [(_degree(N, P, samples, radius[0]), radius[0])]
+    scaling_up = [(_degree_jitted(N, P, samples, radius[0]), radius[0])]
     for m in range(radius[0]+1, radius[1]+1):
-        scaling_up += [(_degree(N, P, samples, m), m)]
+        scaling_up += [(_degree_jitted(N, P, samples, m), m)]
         
-    scaling_up = [(_degree(N, P, samples, 0), 0)] + \
+    scaling_up = [(_degree_jitted(N, P, samples, 0), 0)] + \
         sorted(scaling_up, reverse=True)
     scaling_up = [(tmp[1], tmp[0]) for tmp in scaling_up]
     
