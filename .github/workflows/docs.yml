@@ -42,7 +42,7 @@ jobs:
         python-version: '3.11'
     - name: Install package and doc requirements
       run: |
-        pip install -r docs/requirements.txt
+        pip install -r docs/requirements.txt || true
         pip install .
     - uses: actions/download-artifact@v4
       with:

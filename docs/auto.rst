@@ -1,7 +1,6 @@
-Package documentation
-===========================
 
-.. automodule:: expandLHS.expandLHS
+Package documentation
+=====================
+
+.. automodule:: expandLHS
    :members:
-   :undoc-members:
-   :show-inheritance:
