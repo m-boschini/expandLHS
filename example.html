@@ -165,7 +165,7 @@ Latin Hypercube has always a degree of 1.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;LHS degree = </span><span class="si">{</span><span class="n">degree</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>LHS degree = 0.960</p>
+<p>LHS degree = 0.920</p>
 <p>Using the method <code class="docutils literal notranslate"><span class="pre">ExpandLHS.optimal_expansion</span></code> it is possible to
 compute the degree-of-LHS for different expansion sizes in a given
 interval.</p>
@@ -177,12 +177,12 @@ interval.</p>
 </div>
 <p>List of expansions sorted by the corresponding degree:</p>
 <p>(0, 1.0000)
-(9, 0.9828)
-(6, 0.9615)
-(5, 0.9600)
-(8, 0.9286)
+(9, 0.9483)
+(8, 0.9464)
 (7, 0.9259)
-(4, 0.9167)</p>
+(5, 0.9200)
+(4, 0.9167)
+(6, 0.8654)</p>
 </section>
 <section id="optimized-expansion">
 <h2>Optimized expansion<a class="headerlink" href="#optimized-expansion" title="Link to this heading"></a></h2>
@@ -205,8 +205,8 @@ metric corresponds to a better space-filling of the hypercube.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of LHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of LHS without optimization: 0.0143</p>
-<p>Discrepancy of LHS with optimization: 0.0062</p>
+<p>Discrepancy of LHS without optimization: 0.0131</p>
+<p>Discrepancy of LHS with optimization: 0.0058</p>
 <div class="line-block">
 <div class="line">When using <code class="docutils literal notranslate"><span class="pre">ExpandLHS.__call__</span></code> is it possible to ask for an
 optimized expansion with the keyword <code class="docutils literal notranslate"><span class="pre">optimize=</span></code>, where the
@@ -224,8 +224,8 @@ available metrics are:   - discrepancy
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.0064</p>
-<p>Discrepancy of eLHS with optimization: 0.0051</p>
+<p>Discrepancy of eLHS without optimization: 0.0055</p>
+<p>Discrepancy of eLHS with optimization: 0.0049</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eLHS</span> <span class="o">=</span> <span class="n">ExpandLHS</span><span class="p">(</span><span class="n">lhs_set_opt</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhs_set_expanded_opt</span> <span class="o">=</span> <span class="n">eLHS</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="s1">&#39;geometric_discrepancy&#39;</span><span class="p">)</span>
@@ -235,8 +235,8 @@ available metrics are:   - discrepancy
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">Discrepancy of eLHS with optimization: </span><span class="si">{</span><span class="n">geometric_discrepancy</span><span class="p">(</span><span class="n">lhs_set_expanded_opt</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Discrepancy of eLHS without optimization: 0.2481</p>
-<p>Discrepancy of eLHS with optimization: 0.3061</p>
+<p>Discrepancy of eLHS without optimization: 0.2382</p>
+<p>Discrepancy of eLHS with optimization: 0.3104</p>
 </section>
 </section>
 
